@@ -1,3 +1,4 @@
+import Banner from "../../Component/Banner";
 import Footer from "../../Component/Footer/Footer";
 import NavbarHomePage from "../../Component/Navbar/NavbarHomePage";
 import HeroSection from "./HeroSection";
@@ -10,7 +11,9 @@ const HomePage = () =>{
             <div className="flex gap-4">
                 <HomePageContent/>
                 <HeroSection/>
+               
             </div>
+            <Banner/>
             <Footer/>
 
         </div>
