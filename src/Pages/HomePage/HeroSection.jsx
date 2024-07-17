@@ -1,3 +1,4 @@
+import React from "react";
 import hero from "../../assets/hero-final.png";
 import elips from "../../assets/Ellipse-3.png";
 import elips2 from "../../assets/Ellipse-4.png";

@@ -7,6 +7,8 @@ import LoginPage from './Pages/Login/LoginPage.jsx'
 import RegisterPage from './Pages/Register/RegisterPage.jsx'
 import Testing from './Pages/Testing.js/Testing.jsx'
 import Banner from './Component/Banner.jsx'
+import HomePageLogin from './Pages/HomePage/HomePageLogin.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -28,7 +30,12 @@ const router = createBrowserRouter([
   {
     path: '/banner',
     element: <Banner/>
+  },
+  {
+    path: '/homeLogin',
+    element: <HomePageLogin/>
   }
+  
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

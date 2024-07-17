@@ -2,13 +2,11 @@ import React from 'react';
 import Input from './Input';
 import Label from './Label';
 
-const Index = (props) => {
-  const { deskripsi, name, type, placeholder, } = props;
-
+const Index = ({ deskripsi, name, type, placeholder, value, onChange }) => {
   return (
-    <div className="">
+    <div>
       <Label htmlFor={name}>{deskripsi}</Label>
-      <Input name={name} type={type} placeholder={placeholder} />
+      <Input name={name} type={type} placeholder={placeholder} value={value} onChange={onChange} />
     </div>
   );
 };
