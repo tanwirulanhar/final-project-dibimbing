@@ -1,8 +1,12 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Carousel from 'react-material-ui-carousel';
+import { Paper, Grid } from '@mui/material';
 
 const Banner = () => {
-  const [user, setUser] = useState([]);
+  const [banners, setBanners] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -13,7 +17,7 @@ const Banner = () => {
         }
       );
       console.log(res?.data?.data);
-      setUser(res?.data?.data);
+      setBanners(res?.data?.data);
     } catch {
       console.log("error");
     }
@@ -24,18 +28,80 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="h-auto mx-8 my-20 cursor-pointer ">
-      <h1 className="mb-20 text-3xl font-bold text-center text-green-700">Highlight Destination</h1>
-      <div className="flex gap-4 ">
-        {user.map((item) => (
-          <div key={item.id} className="transition duration-300 transform bg-white shadow-2xl rounded-xl hover:scale-105 hover:-translate-y-1">
-            <img className="w-60 h-36 rounded-t-xl" src={item.imageUrl} alt={item.name} />
-            <h1 className="mt-4 mb-8 text-center text-green-700 ">{item.name}</h1>
-          </div>
+    <div css={mainContainer}>
+      <h1 className="pt-10 mb-20 text-3xl font-bold text-center text-green-800">Highlight Destination</h1>
+      <Carousel
+        indicators={false}
+        navButtonsAlwaysVisible={true}
+        autoPlay={false}
+        navButtonsProps={{
+          style: {
+            top: '10%',  // Mengatur posisi vertikal
+            zIndex: 100, // Menempatkan tombol navigasi di atas konten
+          }
+        }}
+      >
+        {chunkArray(banners, 3).map((chunk, index) => (
+          <Grid container spacing={4} key={index} justifyContent="center">
+            {chunk.map((item) => (
+              <Grid item key={item.id}>
+                <Item item={item} />
+              </Grid>
+            ))}
+          </Grid>
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 };
+
+const Item = (props) => {
+  return (
+    <Paper css={itemPaper}>
+      <img css={itemImage} src={props.item.imageUrl} alt={props.item.name} />
+      <h1 css={itemName}>{props.item.name}</h1>
+    </Paper>
+  );
+}
+
+const chunkArray = (array, chunkSize) => {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
+
+const mainContainer = css`
+  background-color: rgba(0, 0, 0, 0.1); 
+  padding: 40px;
+`;
+
+const itemPaper = css`
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.05) translateY(-5px);
+  }
+  border-radius: 16px;
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 6px;
+`;
+
+const itemImage = css`
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+`;
+
+const itemName = css`
+  margin-top: 16px;
+  margin-bottom: 20px;
+  color: #2F855A;
+  font-size: 15px;
+  font-weight: bold;
+`;
 
 export default Banner;
