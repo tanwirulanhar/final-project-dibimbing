@@ -29,7 +29,8 @@ const Banner = () => {
 
   return (
     <div css={mainContainer}>
-      <h1 className="pt-10 mb-20 text-3xl font-bold text-center text-green-800">Highlight Destination</h1>
+      <h1 className="pt-10 mb-4 text-3xl font-bold text-center text-green-800">Highlight Destination</h1>
+      <p className='mb-16 font-semibold text-center text-green-600 '>"Discover Your Dream Destinations"</p>
       <Carousel
         indicators={false}
         navButtonsAlwaysVisible={true}
@@ -73,7 +74,7 @@ const chunkArray = (array, chunkSize) => {
 }
 
 const mainContainer = css`
-  background-color: rgba(0, 0, 0, 0.1); 
+
   padding: 40px;
 `;
 
@@ -86,6 +87,7 @@ const itemPaper = css`
   text-align: center;
   margin-bottom: 32px;
   padding: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 `;
 
 const itemImage = css`
