@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "../../Element/Button/Button";
+import update from "../../../assets/icon/Edit.png";
+
 
 const CardUser = () => {
   const [dataAllUser, setDataAllUser] = useState([]);
@@ -48,12 +50,12 @@ const CardUser = () => {
   };
 
   return (
-    <div className="relative z-10 p-6 mt-2 mb-10 mr-32 bg-white shadow-2xl h-634 rounded-b-2xl ">
-      <div className="grid grid-cols-1 gap-4 cursor-pointer sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+    <div className="relative z-10 flex flex-col justify-between p-6 mt-2 mb-10 mr-32 bg-white shadow-2xl h-634 rounded-b-2xl ">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
         {currentUsers.map((data) => (
           <div
             key={data.id}
-            className="flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
           >
             <img
               className="object-cover w-full h-40 mb-2 rounded-lg"
@@ -67,6 +69,14 @@ const CardUser = () => {
                 <p className="text-sm text-gray-600">{data.phoneNumber}</p>
               </div>
               <p className="text-sm font-bold text-green-500">{data.role}</p>
+            </div>
+            <div className="absolute flex space-x-2 bottom-2 right-2">
+              <img
+                src={update}
+                alt="edit"
+                className="w-5 h-5 cursor-pointer"
+              />
+         
             </div>
           </div>
         ))}

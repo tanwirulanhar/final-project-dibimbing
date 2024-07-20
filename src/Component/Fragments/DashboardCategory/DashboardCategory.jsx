@@ -5,15 +5,15 @@ import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
 import hapus from "../../../assets/icon/sampah.png";
 
-const DashboardPromo = () => {
+const DashboardCategory = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 6;
 
-  const fetchDataPromo = async () => {
+  const fetchDataCategory = async () => {
     try {
       const res = await axios.get(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/promos",
+        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/categories",
         {
           headers: {
             apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
@@ -27,7 +27,7 @@ const DashboardPromo = () => {
   };
 
   useEffect(() => {
-    fetchDataPromo();
+    fetchDataCategory();
   }, []);
 
   const indexOfLastUser = currentPage * usersPerPage;
@@ -49,7 +49,7 @@ const DashboardPromo = () => {
   };
 
   return (
-    <div className="relative z-10 p-6 mt-2 mb-10 mr-32 bg-white shadow-2xl flex flex-col justify-between h-[634px] rounded-b-2xl ">
+    <div className="relative z-10 p-6 mt-2 mb-10 mr-32 bg-white shadow-2xl h-[634px] rounded-b-2xl ">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
         {currentUsers.map((data) => (
           <div
@@ -61,13 +61,12 @@ const DashboardPromo = () => {
               src={data.imageUrl}
               alt="profile"
             />
-            <h2 className="text-sm font-bold text-green-500">{data.title}</h2>
+            <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
             <p className="text-sm text-gray-600">
-              Create : {format(new Date(data.createdAt), "dd-MM-yyyy HH:mm:ss")}
+              Create : {format(new Date(data.createdAt), "dd-MM-yyyy ")}
             </p>
             <p className="text-sm text-gray-600">
-              Last Update :{" "}
-              {format(new Date(data.updatedAt), "dd-MM-yyyy HH:mm:ss")}
+              Last Update : {format(new Date(data.updatedAt), "dd-MM-yyyy ")}
             </p>
             <div className="absolute flex space-x-2 bottom-2 right-2">
               <img
@@ -82,9 +81,7 @@ const DashboardPromo = () => {
               />
             </div>
           </div>
-          
         ))}
-       
       </div>
 
       <div className="flex justify-center mt-4 mb-2 space-x-2">
@@ -103,4 +100,4 @@ const DashboardPromo = () => {
   );
 };
 
-export default DashboardPromo;
+export default DashboardCategory;

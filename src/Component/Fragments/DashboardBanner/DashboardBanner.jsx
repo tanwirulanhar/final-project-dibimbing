@@ -5,15 +5,15 @@ import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
 import hapus from "../../../assets/icon/sampah.png";
 
-const DashboardPromo = () => {
+const DashboardBanner = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 6;
 
-  const fetchDataPromo = async () => {
+  const fetchDataBanner = async () => {
     try {
       const res = await axios.get(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/promos",
+        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/banners",
         {
           headers: {
             apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
@@ -27,7 +27,7 @@ const DashboardPromo = () => {
   };
 
   useEffect(() => {
-    fetchDataPromo();
+    fetchDataBanner();
   }, []);
 
   const indexOfLastUser = currentPage * usersPerPage;
@@ -61,13 +61,13 @@ const DashboardPromo = () => {
               src={data.imageUrl}
               alt="profile"
             />
-            <h2 className="text-sm font-bold text-green-500">{data.title}</h2>
+            <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
             <p className="text-sm text-gray-600">
-              Create : {format(new Date(data.createdAt), "dd-MM-yyyy HH:mm:ss")}
+              Create : {format(new Date(data.createdAt), "dd-MM-yyyy ")}
             </p>
             <p className="text-sm text-gray-600">
               Last Update :{" "}
-              {format(new Date(data.updatedAt), "dd-MM-yyyy HH:mm:ss")}
+              {format(new Date(data.updatedAt), "dd-MM-yyyy ")}
             </p>
             <div className="absolute flex space-x-2 bottom-2 right-2">
               <img
@@ -82,9 +82,7 @@ const DashboardPromo = () => {
               />
             </div>
           </div>
-          
         ))}
-       
       </div>
 
       <div className="flex justify-center mt-4 mb-2 space-x-2">
@@ -103,4 +101,4 @@ const DashboardPromo = () => {
   );
 };
 
-export default DashboardPromo;
+export default DashboardBanner;

@@ -29,7 +29,7 @@ const NavbarLogin = () => {
   }, []);
 
   return (
-    <div className="sticky top-0 z-50 h-32 bg-white shadow-lg  bg-opacity-80">
+    <div className="sticky top-0 z-50 h-32 bg-white shadow-lg bg-opacity-80">
       <div className="container flex items-center justify-between px-4 py-2 mx-auto">
         <img className="w-36 md:w-40" src={logo} alt="logo" />
 
@@ -38,7 +38,7 @@ const NavbarLogin = () => {
         </div>
 
         {userData && (
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center mr-10 space-x-4">
             {userData.profilePictureUrl && (
               <img
                 src={userData.profilePictureUrl}

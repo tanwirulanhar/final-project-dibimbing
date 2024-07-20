@@ -11,8 +11,11 @@ import HomePageLogin from './Pages/HomePage/HomePageLogin.jsx';
 import HomePageAdmin from './Pages/HomePage/HomePageAdmin.jsx';
 import CardUser from './Component/Fragments/DashboardCardUser/CardUser.jsx';
 import DashboardPromo from './Component/Fragments/DashboardPromo/DashboardPromo.jsx';
+import DashboardBanner from './Component/Fragments/DashboardBanner/DashboardBanner.jsx';
+import DashboardCategory from './Component/Fragments/DashboardCategory/DashboardCategory.jsx';
+import DashboardActivity from './Component/Fragments/DashboardActivity/DashboardActivity.jsx';
 
-// Define the router with routes and nested routes
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -49,8 +52,20 @@ const router = createBrowserRouter([
       {
         path: 'promo',
         element: <DashboardPromo/>
+      },
+      {
+        path: 'banner',
+        element: <DashboardBanner/>
+      },
+      {
+        path: 'category',
+        element: <DashboardCategory/>
+      },
+      {
+        path: 'activity',
+        element: <DashboardActivity/>
       }
-      // Add other child routes here
+     
     ],
   },
   {
