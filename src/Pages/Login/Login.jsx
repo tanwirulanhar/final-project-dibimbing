@@ -48,7 +48,7 @@ const Login = () => {
       setPopup(true);
 
       setTimeout(() => {
-        navigate("/homeLogin");
+        navigate("/homepageadmin/alluser");
       }, 2000);
 
       console.log("Token:", res.data.token);
