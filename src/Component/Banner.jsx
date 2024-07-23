@@ -16,7 +16,7 @@ const Banner = () => {
           headers: { apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c" },
         }
       );
-      console.log(res?.data?.data);
+     
       setBanners(res?.data?.data);
     } catch {
       console.log("error");

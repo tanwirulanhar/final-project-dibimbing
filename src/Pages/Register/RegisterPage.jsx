@@ -1,21 +1,32 @@
 import React from "react";
 import HeroSection from "../HomePage/HeroSection";
 import Register from "./Register";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo-baru.png";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  const handleLogo = () => {
+    navigate("/");
+  };
+
   return (
-    <div className="relative h-auto min-h-screen bg-white">
-      <img
-        src={logo}
-        alt="logo"
-        className="z-20 hidden h-40 ml-4 w-36 md:block "
-      />
-      <div className="relative flex flex-col min-h-screen gap-40 mt-10 md:flex-row md:-mt-28 ">
-        <div className="z-10 hidden md:block">
+    <div className="relative min-h-screen bg-white">
+      <div className="absolute top-0 left-0 z-40 mt-8 ml-16 cursor-pointer">
+        <img
+          src={logo}
+          alt="logo"
+          className="object-cover h-16 w-28 md:w-32"
+          onClick={handleLogo}
+        />
+      </div>
+
+      <div className="relative flex flex-col min-h-screen md:flex-row">
+        <div className="hidden w-1/2 md:block">
           <HeroSection />
         </div>
-        <div className="z-20">
+        <div className="z-50 w-full md:w-1/2">
           <Register />
         </div>
       </div>

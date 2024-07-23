@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ ZIndex, onMenuClick, activeMenu }) => {
+const Sidebar = ({  onMenuClick, activeMenu }) => {
   const menuItems = [
     { label: 'User', path: '/homepageadmin/alluser', value: 'User' },
     { label: 'Promo', path: '/homepageadmin/promo', value: 'Promo ' },
@@ -12,8 +12,8 @@ const Sidebar = ({ ZIndex, onMenuClick, activeMenu }) => {
 
   return (
     <div
-      className="relative flex flex-col w-64 m-6 mt-10 ml-24 text-green-500 bg-white border shadow-lg rounded-2xl"
-      style={{ zIndex: ZIndex, height: '720px' }}
+      className="relative z-10 flex flex-col w-64 m-6 mt-10 ml-24 text-green-500 shadow-lg bg-slate-100 h-634 rounded-2xl"
+      
     >
       <nav className="flex-1 p-4">
         <ul>

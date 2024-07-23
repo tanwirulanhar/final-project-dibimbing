@@ -3,9 +3,9 @@ import gambar1 from "../../assets/Group-1.png";
 import gambarbulat1 from "../../assets/Ellipse-3.png";
 import gambarbulat2 from "../../assets/Ellipse-4.png";
 
-const DashboardBackground = ({ zIndex }) => {
+const DashboardBackground = () => {
   return (
-    <div className="absolute left-0 w-full h-full top-10" style={{ zIndex }}>
+    <div className="absolute left-0 w-full h-full top-10" z-0>
       <div className="relative mb-10">
         <div className="flex">
           <img

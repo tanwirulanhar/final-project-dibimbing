@@ -9,7 +9,8 @@ const LoginPage = () => {
       <img 
         src={logo} 
         alt="logo" 
-        className="relative z-10 h-48 ml-20 w-44" 
+        className="z-20 hidden h-40 ml-4 w-36 md:block" 
+       
       />
       <div className="relative z-20 flex justify-between min-h-screen -mt-28">
         <HeroSection />

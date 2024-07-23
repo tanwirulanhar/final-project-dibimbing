@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div className="flex items-center justify-between text-white h-362 bg-zinc-800">
       <div className="pt-16 mb-4 ml-24">
-        <img src={logo} alt="logo" className="h-36 w-36 md:w-40" />
+        <img src={logo} alt="logo" className="w-20 h-20 md:w-40" />
         <p className="mt-2 text-base font-normal w-336">
           Every journey is a new story. Create your own adventure and live
           experiences that will stay with you forever.

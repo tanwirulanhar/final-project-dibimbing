@@ -4,10 +4,12 @@ import { format } from "date-fns";
 import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
 import hapus from "../../../assets/icon/sampah.png";
+import CreatePromo from "../../Element/Modals/ModalsUpdateRole/ModalsCreateProm";
 
 const DashboardPromo = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showCreatePromo, setShowCreatePromo] = useState(false);
   const usersPerPage = 6;
 
   const fetchDataPromo = async () => {
@@ -48,8 +50,19 @@ const DashboardPromo = () => {
     }
   };
 
+  const handleCreatePromoClose = () => {
+    setShowCreatePromo(false);
+    fetchDataPromo();
+  };
+
   return (
-    <div className="relative z-10 p-6 mt-2 mb-10 mr-32 bg-white shadow-2xl flex flex-col justify-between h-[634px] rounded-b-2xl ">
+    <div className="relative z-10 flex flex-col justify-between h-auto p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 rounded-2xl">
+      <Button
+        onClick={() => setShowCreatePromo(true)}
+        text="Create Promo"
+        className="self-end mb-4"
+      />
+      
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
         {currentUsers.map((data) => (
           <div
@@ -57,7 +70,7 @@ const DashboardPromo = () => {
             className="flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
           >
             <img
-              className="object-cover w-full h-40 mb-2 rounded-lg"
+              className="object-cover w-full h-40 mb-4 rounded-lg"
               src={data.imageUrl}
               alt="profile"
             />
@@ -70,21 +83,11 @@ const DashboardPromo = () => {
               {format(new Date(data.updatedAt), "dd-MM-yyyy HH:mm:ss")}
             </p>
             <div className="absolute flex space-x-2 bottom-2 right-2">
-              <img
-                src={update}
-                alt="edit"
-                className="w-5 h-5 cursor-pointer"
-              />
-              <img
-                src={hapus}
-                alt="delete"
-                className="w-5 h-5 cursor-pointer"
-              />
+              <img src={update} alt="edit" className="w-5 h-5 cursor-pointer" />
+              <img src={hapus} alt="delete" className="w-5 h-5 cursor-pointer" />
             </div>
           </div>
-          
         ))}
-       
       </div>
 
       <div className="flex justify-center mt-4 mb-2 space-x-2">
@@ -99,6 +102,10 @@ const DashboardPromo = () => {
           text="Next"
         ></Button>
       </div>
+
+      {showCreatePromo && (
+        <CreatePromo onClose={handleCreatePromoClose} onUpdate={fetchDataPromo} />
+      )}
     </div>
   );
 };

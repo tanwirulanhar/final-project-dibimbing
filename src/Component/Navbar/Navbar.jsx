@@ -1,0 +1,126 @@
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Button from "../../Component/Element/Button/Button";
+import logo from "../../assets/logo-baru.png";
+import Navlist from "../Element/Navlist/Navlist";
+import tandaBawah from "../../assets/icon/tanda-bawah.png";
+import logoutIcon from "../../assets/icon/Logout.png";
+
+const Navbar = () => {
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return; 
+        const response = await axios.get(
+          "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
+            },
+          }
+        );
+        setUserData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    setUserData(null); 
+    navigate("/"); 
+  };
+
+  const handleLogoClick = () => {
+    if (userData?.role === "admin") {
+      navigate('/homepageadmin/alluser'); 
+    } else {
+      navigate("/"); 
+    }
+  };
+
+  return (
+    <div
+      className={`sticky top-0 z-20 p-2 px-14 bg-white shadow-lg bg-opacity-80 transition-transform duration-300 h-auto ${
+        showNavbar ? "transform translate-y-0" : "transform -translate-y-full"
+      }`}
+    >
+      <div className="container flex items-center justify-between px-4 py-2 mx-auto">
+        <img className="object-cover h-12 mt-2 cursor-pointer w-28 md:w-32" src={logo} alt="logo" onClick={handleLogoClick}  />
+
+        <div className="items-center hidden space-x-6 md:flex">
+          {userData ? <Navlist userRole={userData.role} /> : <Navlist />}
+        </div>
+
+        {userData ? (
+          <div className="flex items-center space-x-4">
+            {userData.profilePictureUrl && (
+              <img
+                src={userData.profilePictureUrl}
+                alt="img"
+                className="w-8 h-8 rounded-full"
+              />
+            )}
+            <div>
+              <span className="font-medium">{userData.name}</span>
+              <div className="flex items-center gap-3">
+                <p>{userData.role}</p>
+                <img
+                  src={tandaBawah}
+                  alt="img"
+                  className="w-4 h-4 pt-1 hover:cursor-pointer"
+                />
+                <img
+                  src={logoutIcon}
+                  alt="logout"
+                  className="w-4 h-4 pt-1 hover:cursor-pointer"
+                  onClick={handleLogout}
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex space-x-4">
+            <Link to="/login">
+              <Button text="Sign In" marginClass="mr-4" />
+            </Link>
+            <Link to="/register">
+              <Button text="Sign Up" />
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;

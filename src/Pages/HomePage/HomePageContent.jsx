@@ -1,8 +1,5 @@
 import React from "react";
-
 import Button from "../../Component/Element/Button/Button";
-
-
 import vector2 from "../../assets/Group-1.png";
 
 

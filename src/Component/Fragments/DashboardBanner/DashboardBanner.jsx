@@ -49,7 +49,7 @@ const DashboardBanner = () => {
   };
 
   return (
-    <div className="relative z-10 p-6 mt-2 mb-10 mr-32 bg-white shadow-2xl flex flex-col justify-between h-[634px] rounded-b-2xl ">
+    <div className="relative z-10 flex flex-col justify-between p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 h-634 rounded-2xl ">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
         {currentUsers.map((data) => (
           <div

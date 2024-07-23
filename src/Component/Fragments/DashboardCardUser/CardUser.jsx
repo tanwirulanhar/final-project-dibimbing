@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
-
+import UpdateRole from "../../Element/Modals/ModalsUpdateRole/UpdateRole";
 
 const CardUser = () => {
   const [dataAllUser, setDataAllUser] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const usersPerPage = 6;
 
   const fetchDataAllUser = async () => {
@@ -22,6 +24,7 @@ const CardUser = () => {
         }
       );
       setDataAllUser(res.data.data);
+      console.log(res.data.data);
     } catch (err) {
       console.log(err);
     }
@@ -30,6 +33,14 @@ const CardUser = () => {
   useEffect(() => {
     fetchDataAllUser();
   }, []);
+
+  const handleRoleUpdate = (userId, newRole) => {
+    setDataAllUser(prevData =>
+      prevData.map(user =>
+        user.id === userId ? { ...user, role: newRole } : user
+      )
+    );
+  };
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -49,8 +60,18 @@ const CardUser = () => {
     }
   };
 
+  const handleEditClick = (user) => {
+    setSelectedUser(user);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
+
   return (
-    <div className="relative z-10 flex flex-col justify-between p-6 mt-2 mb-10 mr-32 bg-white shadow-2xl h-634 rounded-b-2xl ">
+    <div className="relative z-10 flex flex-col justify-between p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 h-634 rounded-2xl ">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
         {currentUsers.map((data) => (
           <div
@@ -75,8 +96,8 @@ const CardUser = () => {
                 src={update}
                 alt="edit"
                 className="w-5 h-5 cursor-pointer"
+                onClick={() => handleEditClick(data)}
               />
-         
             </div>
           </div>
         ))}
@@ -94,6 +115,10 @@ const CardUser = () => {
           text="Next"
         ></Button>
       </div>
+
+      {showModal && selectedUser && (
+        <UpdateRole user={selectedUser} onClose={handleCloseModal} onUpdate={handleRoleUpdate} />
+      )}
     </div>
   );
 };

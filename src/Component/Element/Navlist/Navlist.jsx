@@ -1,18 +1,27 @@
-const Navlist = () => {
-    const navItems = ["Home", "Activity", "Promo "];
-    return (
-      <>
-        {navItems.map((item) => (
-          <div
-            key={item}
-            className="text-lg font-bold hover:-translate-y-1 hover:scale-110 text-green-600 transition-all duration-200 cursor-pointer  hover:border-b-2 hover:border-green-600"
-          >
-            {item}
-          </div>
-        ))}
-      </>
-    );
-  };
-  
-  export default Navlist;
-  
+import { Link } from "react-router-dom";
+
+const Navlist = ({ userRole }) => {
+  const navItems = userRole === "admin"
+    ? [{ name: "Dashboard", path: "/homepageadmin/alluser" }]
+    : [
+        { name: "Home", path: "/" },
+        { name: "Promo", path: "/PromoPage" },
+        { name: "Activity", path: "/ActivityPage" },
+      ];
+
+  return (
+    <>
+      {navItems.map((item) => (
+        <Link
+          key={item.name}
+          to={item.path}
+          className="text-lg font-bold text-green-600 transition-all duration-200 cursor-pointer hover:-translate-y-1 hover:scale-110 hover:border-b-2 hover:border-green-600"
+        >
+          {item.name}
+        </Link>
+      ))}
+    </>
+  );
+};
+
+export default Navlist;
