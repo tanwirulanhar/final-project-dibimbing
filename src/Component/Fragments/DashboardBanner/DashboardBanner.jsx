@@ -4,11 +4,22 @@ import { format } from "date-fns";
 import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
 import hapus from "../../../assets/icon/sampah.png";
+import CreateBanner from "../../Element/Modals/ModalsBanner/ModalsCreateBanner/CreateBanner";
+import UpdateBanner from "../../Element/Modals/ModalsBanner/ModalsUpdateBanner/UpdateBanner";
+import useDelete from "../../../hooks/useDelete";
+import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
 
 const DashboardBanner = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showCreateBanner, setShowCreateBanner] = useState(false);
+  const [showUpdateBanner, setShowUpdateBanner] = useState(false);
+  const [selectedBanner, setSelectedBanner] = useState(null);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [bannerToDelete, setBannerToDelete] = useState(null);
   const usersPerPage = 6;
+
+  const { deleteData } = useDelete();
 
   const fetchDataBanner = async () => {
     try {
@@ -48,37 +59,90 @@ const DashboardBanner = () => {
     }
   };
 
+  const handleCreateBannerClose = () => {
+    setShowCreateBanner(false);
+    fetchDataBanner();
+  };
+
+  const handleUpdateBannerClose = () => {
+    setShowUpdateBanner(false);
+    setSelectedBanner(null);
+    fetchDataBanner();
+  };
+
+  const handleDeleteBanner = (banner) => {
+    setBannerToDelete(banner);
+    setShowConfirmDelete(true);
+  };
+
+  const confirmDelete = async () => {
+    if (bannerToDelete && bannerToDelete.id) {
+      try {
+        const res = await deleteData(`delete-banner/${bannerToDelete.id}`);
+        if (res.status === 200) {
+          console.log("Banner berhasil dihapus.");
+          fetchDataBanner();
+        } else {
+          console.error("Gagal menghapus banner. Status: " + res.status);
+        }
+      } catch (error) {
+        console.error("Gagal menghapus banner.");
+        console.error(error);
+      } finally {
+        setShowConfirmDelete(false);
+        setBannerToDelete(null);
+      }
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmDelete(false);
+    setBannerToDelete(null);
+  };
+
+  const handleEditBanner = (banner) => {
+    setSelectedBanner(banner);
+    setShowUpdateBanner(true);
+  };
+
   return (
-    <div className="relative z-10 flex flex-col justify-between p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 h-634 rounded-2xl ">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+    <div className="relative z-10 flex flex-col justify-between h-auto p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 rounded-2xl">
+      <Button
+        onClick={() => setShowCreateBanner(true)}
+        text="Create Banner"
+        className="self-end mb-4"
+      />
+
+      <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
         {currentUsers.map((data) => (
           <div
             key={data.id}
-            className="flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
           >
             <img
-              className="object-cover w-full h-40 mb-2 rounded-lg"
+              className="object-cover w-full h-40 mb-4 rounded-lg"
               src={data.imageUrl}
-              alt="profile"
+              alt="banner"
             />
             <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
             <p className="text-sm text-gray-600">
-              Create : {format(new Date(data.createdAt), "dd-MM-yyyy ")}
+              Created: {format(new Date(data.createdAt), "dd-MM-yyyy")}
             </p>
             <p className="text-sm text-gray-600">
-              Last Update :{" "}
-              {format(new Date(data.updatedAt), "dd-MM-yyyy ")}
+              Last Updated: {format(new Date(data.updatedAt), "dd-MM-yyyy")}
             </p>
             <div className="absolute flex space-x-2 bottom-2 right-2">
               <img
                 src={update}
                 alt="edit"
                 className="w-5 h-5 cursor-pointer"
+                onClick={() => handleEditBanner(data)}
               />
               <img
                 src={hapus}
                 alt="delete"
                 className="w-5 h-5 cursor-pointer"
+                onClick={() => handleDeleteBanner(data)}
               />
             </div>
           </div>
@@ -90,13 +154,33 @@ const DashboardBanner = () => {
           onClick={handlePrevPage}
           text="Back"
           disabled={currentPage === 1}
-        ></Button>
+        />
         <Button
           onClick={handleNextPage}
-          disabled={currentPage === totalPages}
           text="Next"
-        ></Button>
+          disabled={currentPage === totalPages}
+        />
       </div>
+
+      {showCreateBanner && (
+        <CreateBanner onClose={handleCreateBannerClose} onUpdate={fetchDataBanner} />
+      )}
+
+      {showUpdateBanner && selectedBanner && (
+        <UpdateBanner
+          onClose={handleUpdateBannerClose}
+          onUpdate={fetchDataBanner}
+          bannerData={selectedBanner}
+        />
+      )}
+
+      {showConfirmDelete && (
+        <ConfirmDelete
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+          message={`Are you sure you want to delete this banner?`}
+        />
+      )}
     </div>
   );
 };

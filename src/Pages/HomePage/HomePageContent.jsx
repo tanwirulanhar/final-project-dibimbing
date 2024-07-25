@@ -6,9 +6,9 @@ import vector2 from "../../assets/Group-1.png";
 const HomePageContent = () => {
   return (
     <div className="relative flex justify-between min-h-screen bg-white">
-        <img src={vector2} alt="#" className="absolute top-0 z-10 -left-10" />
+        <img src={vector2} alt="#" className="absolute top-0 z-0 -left-10" />
 
-      <div className="z-40 pl-20 mt-44 ">
+      <div className="z-10 pl-20 mt-44 ">
         <h1 className="mb-4 text-4xl font-bold text-green-600">
           Journey Beyond Horizons <br />
           Explore the Unseen Beauty

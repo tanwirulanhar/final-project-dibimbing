@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import useCreate from "../../../../hooks/useCreate";
-import useUpload from "../../../../hooks/useUpload";
-import PopupDashboard from "../../Popup/PopUpDashboard";
-import Button from "../../Button/Button";
-import Index from "../../Input/Index";
+import useCreate from "../../../../../hooks/useCreate";
+import useUpload from "../../../../../hooks/useUpload";
+import PopupDashboard from "../../../Popup/PopUpDashboard";
+import Button from "../../../Button/Button";
+import Index from "../../../Input/Index";
 
 const CreatePromo = ({ onClose, onUpdate }) => {
   const { create } = useCreate();
@@ -170,7 +170,7 @@ const CreatePromo = ({ onClose, onUpdate }) => {
             <Button
               onClick={onClose}
               text="Close"
-              className="text-white bg-red-500 hover:bg-red-600"
+              className="text-green-500 bg-red-500 hover:bg-red-600"
             />
           </div>
               </div>

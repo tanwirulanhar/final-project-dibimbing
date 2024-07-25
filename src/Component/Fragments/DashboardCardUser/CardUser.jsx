@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
-import UpdateRole from "../../Element/Modals/ModalsUpdateRole/UpdateRole";
+import UpdateRole from "../../Element/Modals/ModalsUser/ModalsUpdateRole/UpdateRole";
 
 const CardUser = () => {
   const [dataAllUser, setDataAllUser] = useState([]);

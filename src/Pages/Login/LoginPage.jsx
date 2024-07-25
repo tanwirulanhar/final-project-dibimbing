@@ -12,8 +12,8 @@ const LoginPage = () => {
         className="z-20 hidden h-40 ml-4 w-36 md:block" 
        
       />
-      <div className="relative z-20 flex justify-between min-h-screen -mt-28">
-        <HeroSection />
+      <div className="relative z-20 flex gap-28 -mt-28">
+        <HeroSection height="h-362" width="w-full" className="left-36" />
         <Login />
       </div>
     </div>

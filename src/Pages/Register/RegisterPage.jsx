@@ -24,7 +24,7 @@ const RegisterPage = () => {
 
       <div className="relative flex flex-col min-h-screen md:flex-row">
         <div className="hidden w-1/2 md:block">
-          <HeroSection />
+          <HeroSection height="h-362" width="w-full" />
         </div>
         <div className="z-50 w-full md:w-1/2">
           <Register />

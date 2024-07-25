@@ -1,7 +1,7 @@
 import { useState } from "react";
-import useUpdate from "../../../../hooks/useUpdate";
-import PopupDashboard from "../../Popup/PopUpDashboard";
-import Button from "../../Button/Button";
+import useUpdate from "../../../../../hooks/useUpdate";
+import PopupDashboard from "../../../Popup/PopUpDashboard";
+import Button from "../../../Button/Button";
 
 const UpdateRole = ({ user, onClose, onUpdate }) => {
   const { update } = useUpdate();

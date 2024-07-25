@@ -9,9 +9,9 @@ const HomePage = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex gap-4">
+      <div className="flex gap-16">
         <HomePageContent />
-        <HeroSection />
+        <HeroSection height="h-362" width="w-500" />
       </div>
       <Banner />
       <Footer />

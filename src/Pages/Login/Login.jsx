@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative p-10 mt-20 shadow-2xl w-419 mr-44 h-400 rounded-xl">
+    <div className="relative z-40 w-full p-10 mt-20 shadow-2xl mr-44 h-400 rounded-xl">
       <form action="" onSubmit={handleSubmit}>
         <h1 className="text-2xl font-bold text-center text-green-800 mb-14">
           Sign In
