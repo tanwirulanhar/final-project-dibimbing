@@ -6,10 +6,16 @@ import Footer from "../../../Footer/Footer";
 import Navbar from "../../../Navbar/Navbar";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Activity = () => {
   const { getData } = useGetData();
   const [activity, setActivity] = useState([]);
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   useEffect(() => {
     const fetchActivity = async () => {
@@ -43,7 +49,7 @@ const Activity = () => {
   return (
     <div className="overflow-x-hidden">
       <Navbar />
-      <div className="relative w-full h-full ">
+      <div className="relative w-full h-full">
         <div className="flex">
           {/* Banner Section */}
           <div className="relative w-1/2">
@@ -59,7 +65,7 @@ const Activity = () => {
             {activity.length > 0 && (
               <Slider {...settings}>
                 {activity.map((data) => (
-                  <div key={data.id} className="relative">
+                  <div key={data.id} className="relative" data-aos="fade-up">
                     <img
                       src={data.imageUrls}
                       alt="Activity"
@@ -77,8 +83,8 @@ const Activity = () => {
       </div>
 
       <div className="items-center justify-center mt-24 column">
-        <h1 className="mb-6 text-4xl font-bold text-center text-green-800">Our Activity</h1>
-        <p className="text-2xl font-normal text-center text-green-600 px-28 ">
+        <h1 className="mb-6 text-4xl font-bold text-center text-green-800" data-aos="fade-down">Our Activity</h1>
+        <p className="text-2xl font-normal text-center text-green-600 px-28 " data-aos="fade-up">
           Unleash your adventurous spirit with our curated activities. From
           thrilling outdoor escapades to serene nature walks, we have something
           for everyone. Join us and create unforgettable memories.
@@ -89,7 +95,7 @@ const Activity = () => {
         <div className="w-1/2">
           <Slider {...settings2}>
             {activity.map((data) => (
-              <div key={data.id} className="p-4">
+              <div key={data.id} className="p-4" data-aos="zoom-in">
                 <Link to={`/activity/${data.id}`}>
                   <div className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl">
                     <img
@@ -113,7 +119,7 @@ const Activity = () => {
             ))}
           </Slider>
         </div>
-        <div className="flex flex-col items-center justify-center w-1/2 p-8">
+        <div className="flex flex-col items-center justify-center w-1/2 p-8" data-aos="fade-left">
           <h1 className="mb-6 text-2xl font-bold text-white">
             Adventure Awaits
           </h1>
