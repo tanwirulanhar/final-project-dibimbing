@@ -4,6 +4,8 @@ import Navbar from "../../../Navbar/Navbar";
 import gambarBanner from "../../../../assets/Travel-banner.png";
 import useGetData from "../../../../hooks/useGatedata";
 import Footer from "../../../Footer/Footer";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const PromoUser = () => {
   const { getData } = useGetData();
@@ -25,6 +27,10 @@ const PromoUser = () => {
     setNav1(sliderRef1);
     setNav2(sliderRef2);
   }, [getData]);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
 
   const sliderSettingsMain = {
     dots: true,
@@ -53,7 +59,7 @@ const PromoUser = () => {
   return (
     <div>
       <Navbar />
-      <div className="relative flex">
+      <div className="relative flex " data-aos="fade-up">
         <div className="relative w-1/3 p-10 space-y-4 overflow-hidden bg-gray-100 rounded-lg">
           <h1 className="pt-6 text-2xl font-bold text-center text-green-900">
             Discover Unbeatable Travel Deals with Backpacker!
@@ -100,6 +106,7 @@ const PromoUser = () => {
                   <div
                     key={data.id}
                     className="relative flex gap-8 px-6 py-4 mb-10 transition-transform duration-300 ease-in-out transform bg-gray-200 border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+                    data-aos="fade-up"
                   >
                     <img
                       src={data.imageUrl}
