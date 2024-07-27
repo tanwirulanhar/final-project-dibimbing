@@ -4,11 +4,22 @@ import { format } from "date-fns";
 import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
 import hapus from "../../../assets/icon/sampah.png";
+import CreateCategory from "../../Element/Modals/ModalsCategory/CreateCategory/CreateCategory";
+import UpdateCategory from "../../Element/Modals/ModalsCategory/UpdateCategory/UpdateCategory";
+import useDelete from "../../../hooks/useDelete";
+import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
 
 const DashboardCategory = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 6;
+  const [showCreateCategory, setShowCreateCategory] = useState(false);
+  const [showUpdateCategory, setShowUpdateCategory] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
+  const itemsPerPage = 6;
+
+  const { deleteData } = useDelete();
 
   const fetchDataCategory = async () => {
     try {
@@ -30,11 +41,11 @@ const DashboardCategory = () => {
     fetchDataCategory();
   }, []);
 
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(data.length / usersPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -48,36 +59,90 @@ const DashboardCategory = () => {
     }
   };
 
+  const handleCreateCategoryClose = () => {
+    setShowCreateCategory(false);
+    fetchDataCategory();
+  };
+
+  const handleUpdateCategoryClose = () => {
+    setShowUpdateCategory(false);
+    setSelectedCategory(null);
+    fetchDataCategory();
+  };
+
+  const handleDeleteCategory = (category) => {
+    setCategoryToDelete(category);
+    setShowConfirmDelete(true);
+  };
+
+  const confirmDelete = async () => {
+    if (categoryToDelete && categoryToDelete.id) {
+      try {
+        const res = await deleteData(`delete-category/${categoryToDelete.id}`);
+        if (res.status === 200) {
+          console.log("Kategori berhasil dihapus.");
+          fetchDataCategory();
+        } else {
+          console.error("Gagal menghapus kategori. Status: " + res.status);
+        }
+      } catch (error) {
+        console.error("Gagal menghapus kategori.");
+        console.error(error);
+      } finally {
+        setShowConfirmDelete(false);
+        setCategoryToDelete(null);
+      }
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmDelete(false);
+    setCategoryToDelete(null);
+  };
+
+  const handleEditCategory = (category) => {
+    setSelectedCategory(category);
+    setShowUpdateCategory(true);
+  };
+
   return (
-    <div className="relative z-10 p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 h-634 rounded-2xl ">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-        {currentUsers.map((data) => (
+    <div className="relative z-10 flex flex-col justify-between h-auto p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 rounded-2xl">
+      <Button
+        onClick={() => setShowCreateCategory(true)}
+        text="Create Category"
+        className="self-end mb-4"
+      />
+
+      <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+        {currentItems.map((data) => (
           <div
             key={data.id}
-            className="flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
           >
             <img
-              className="object-cover w-full h-40 mb-2 rounded-lg"
+              className="object-cover w-full h-40 mb-4 rounded-lg"
               src={data.imageUrl}
-              alt="profile"
+              alt="category"
             />
             <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
             <p className="text-sm text-gray-600">
-              Create : {format(new Date(data.createdAt), "dd-MM-yyyy ")}
+              Created: {format(new Date(data.createdAt), "dd-MM-yyyy")}
             </p>
             <p className="text-sm text-gray-600">
-              Last Update : {format(new Date(data.updatedAt), "dd-MM-yyyy ")}
+              Last Updated: {format(new Date(data.updatedAt), "dd-MM-yyyy")}
             </p>
             <div className="absolute flex space-x-2 bottom-2 right-2">
               <img
                 src={update}
                 alt="edit"
                 className="w-5 h-5 cursor-pointer"
+                onClick={() => handleEditCategory(data)}
               />
               <img
                 src={hapus}
                 alt="delete"
                 className="w-5 h-5 cursor-pointer"
+                onClick={() => handleDeleteCategory(data)}
               />
             </div>
           </div>
@@ -89,13 +154,33 @@ const DashboardCategory = () => {
           onClick={handlePrevPage}
           text="Back"
           disabled={currentPage === 1}
-        ></Button>
+        />
         <Button
           onClick={handleNextPage}
-          disabled={currentPage === totalPages}
           text="Next"
-        ></Button>
+          disabled={currentPage === totalPages}
+        />
       </div>
+
+      {showCreateCategory && (
+        <CreateCategory onClose={handleCreateCategoryClose} onUpdate={fetchDataCategory} />
+      )}
+
+      {showUpdateCategory && selectedCategory && (
+        <UpdateCategory
+          onClose={handleUpdateCategoryClose}
+          onUpdate={fetchDataCategory}
+          categoryData={selectedCategory}
+        />
+      )}
+
+      {showConfirmDelete && (
+        <ConfirmDelete
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+          message={`Are you sure you want to delete this category?`}
+        />
+      )}
     </div>
   );
 };

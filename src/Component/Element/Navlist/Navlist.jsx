@@ -5,8 +5,8 @@ const Navlist = ({ userRole }) => {
     ? [{ name: "Dashboard", path: "/homepageadmin/alluser" }]
     : [
         { name: "Home", path: "/" },
-        { name: "Promo", path: "/PromoPage" },
-        { name: "Activity", path: "/ActivityPage" },
+        { name: "Promo", path: "/promoUser" },
+        { name: "Activity", path: "/activityUser" },
       ];
 
   return (

@@ -254,6 +254,8 @@ const CreateActivity = ({ onClose, onUpdate, activityData }) => {
                   value={formData.rating}
                   onChange={handleChange}
                   required
+                  min="1"
+                  max="5"
                 />
                 <Index
                   deskripsi="Total Reviews"

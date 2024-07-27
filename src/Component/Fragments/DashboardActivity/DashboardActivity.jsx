@@ -9,8 +9,10 @@ import UpdateActivity from "../../Element/Modals/ModalsActivity/ModalsUpdateActi
 import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
 import PopupDashboard from "../../Element/Popup/PopUpDashboard";
+import useGetData from "../../../hooks/useGatedata";
 
 const DashboardActivity = () => {
+  const { getData } = useGetData();
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showCreateActivity, setShowCreateActivity] = useState(false);
@@ -25,16 +27,11 @@ const DashboardActivity = () => {
   const activitiesPerPage = 6;
   const { deleteData } = useDelete();
 
+
+
   const fetchDataActivity = async () => {
     try {
-      const res = await axios.get(
-        "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/activities",
-        {
-          headers: {
-            apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c",
-          },
-        }
-      );
+      const res = await getData("activities");
       setData(res.data.data);
     } catch (err) {
       console.log(err);
@@ -150,7 +147,8 @@ const DashboardActivity = () => {
                 Created: {format(new Date(activity.createdAt), "dd-MM-yyyy")}
               </p>
               <p className="text-sm text-gray-600">
-                Last Updated: {format(new Date(activity.updatedAt), "dd-MM-yyyy")}
+                Last Updated:{" "}
+                {format(new Date(activity.updatedAt), "dd-MM-yyyy")}
               </p>
               <div className="absolute flex space-x-2 bottom-2 right-2">
                 <img
@@ -198,17 +196,12 @@ const DashboardActivity = () => {
         )}
 
         {showUpdateActivity && selectedActivity && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-            <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-lg md:w-4/5">
-              <h2 className="mb-4 text-2xl font-bold text-center text-green-600">
-                Update Activity
-              </h2>
-              <UpdateActivity
-                onClose={handleUpdateActivityClose}
-                onUpdate={fetchDataActivity}
-                activityData={selectedActivity}
-              />
-            </div>
+          <div >
+            <UpdateActivity
+              onClose={handleUpdateActivityClose}
+              onUpdate={fetchDataActivity}
+              activityData={selectedActivity}
+            />
           </div>
         )}
 

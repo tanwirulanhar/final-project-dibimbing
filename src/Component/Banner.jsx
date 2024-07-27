@@ -1,35 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Grid } from '@mui/material';
+import useGetData from '../hooks/useGatedata';
 
 const Banner = () => {
   const [banners, setBanners] = useState([]);
-
-  const fetchData = async () => {
-    try {
-      const res = await axios.get(
-        `https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/banners`,
-        {
-          headers: { apiKey: "24405e01-fbc1-45a5-9f5a-be13afcd757c" },
-        }
-      );
-     
-      setBanners(res?.data?.data);
-    } catch {
-      console.log("error");
-    }
-  };
+  const { getData } = useGetData();
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const fetchData = async () => {
+      const res = await getData("banners");
+      if (res && res.data) {
+        setBanners(res.data.data);
+      }
+    };
 
+    fetchData();
+  }, [getData])
+
+  
   return (
     <div css={mainContainer}>
-      <h1 className="pt-10 mb-4 text-3xl font-bold text-center text-green-800">Highlight Destination</h1>
+      <h1 className="pt-8 mb-4 text-3xl font-bold text-center text-green-800 ">Highlight Destination</h1>
       <p className='mb-16 font-semibold text-center text-green-600 '>"Discover Your Dream Destinations"</p>
       <Carousel
         indicators={false}

@@ -87,13 +87,13 @@ const CreatePromo = ({ onClose, onUpdate }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center pt-32 pb-10 bg-black bg-opacity-50">
-      <div className="w-2/3 h-auto p-10 mt-10 mb-10 bg-white rounded-lg z-60">
+      <div className="w-2/3 h-auto p-6 bg-white rounded-lg z-60">
         <h2 className="mb-6 text-2xl font-bold text-center text-green-700 ">
           Create Promo
         </h2>
         <form onSubmit={handleCreatePromo} className="w-full">
           <div className="flex gap-3">
-            <div className="flex flex-col w-full gap-3 md:w-1/2">
+            <div className="flex flex-col w-full md:w-1/2">
               <Index
                 deskripsi="Title"
                 name="title"

@@ -87,13 +87,13 @@ const UpdateActivity = ({ onClose, onUpdate, activityData }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-full max-w-lg p-10 mt-20 bg-white rounded-lg shadow-lg">
-        <h2 className="mb-6 text-2xl font-bold text-center text-green-700">
+    <div className="fixed inset-0 z-50 flex items-center justify-center w-full bg-gray-800 bg-opacity-75 h-fullS ">
+      <div className="w-1/2 max-w-lg px-10 py-6 mb-20 bg-white rounded-lg shadow-lg mt-44">
+        <h2 className="mb-4 text-2xl font-bold text-center text-green-700">
           Update Activity
         </h2>
         <form onSubmit={handleUpdateActivity} className="w-full">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col">
             <div className="flex w-full gap-3">
               <Index
                 deskripsi="Title"
@@ -116,7 +116,7 @@ const UpdateActivity = ({ onClose, onUpdate, activityData }) => {
                 required
               />
             </div>
-            <div className="flex flex-col w-full gap-3">
+            <div className="flex flex-col w-full ">
               <div className="flex flex-col gap-2">
                 <label htmlFor="image" className="font-semibold text-green-600">
                   Upload Image
