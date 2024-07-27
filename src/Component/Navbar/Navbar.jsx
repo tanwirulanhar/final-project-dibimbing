@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "../../Component/Element/Button/Button";
 import logo from "../../assets/logo-baru.png";
 import Navlist from "../Element/Navlist/Navlist";
 import tandaBawah from "../../assets/icon/tanda-bawah.png";
-import logoutIcon from "../../assets/icon/Logout.png";
+import DropdownMenu from "../Element/DropdownMenu/DropdownMenu";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const dropdownRef = useRef(null); // Ref untuk dropdown
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) return; 
+        if (!token) return;
         const response = await axios.get(
           "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/user",
           {
@@ -53,19 +55,30 @@ const Navbar = () => {
     };
   }, [lastScrollY]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
-    setUserData(null); 
-    navigate("/"); 
-  };
+  // Tambahkan event listener untuk menangani klik di luar dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   const handleLogoClick = () => {
     if (userData?.role === "admin") {
-      navigate('/homepageadmin/alluser'); 
+      navigate('/homepageadmin/alluser');
     } else {
-      navigate("/"); 
+      navigate("/");
     }
+  };
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
   };
 
   return (
@@ -75,14 +88,14 @@ const Navbar = () => {
       }`}
     >
       <div className="container flex items-center justify-between px-4 py-2 mx-auto">
-        <img className="object-cover h-12 mt-2 cursor-pointer w-28 md:w-32" src={logo} alt="logo" onClick={handleLogoClick}  />
+        <img className="object-cover h-12 mt-2 cursor-pointer w-28 md:w-32" src={logo} alt="logo" onClick={handleLogoClick} />
 
         <div className="items-center hidden space-x-6 md:flex">
           {userData ? <Navlist userRole={userData.role} /> : <Navlist />}
         </div>
 
         {userData ? (
-          <div className="flex items-center space-x-4">
+          <div className="relative flex items-center space-x-4">
             {userData.profilePictureUrl && (
               <img
                 src={userData.profilePictureUrl}
@@ -96,17 +109,17 @@ const Navbar = () => {
                 <p>{userData.role}</p>
                 <img
                   src={tandaBawah}
-                  alt="img"
+                  alt="dropdown"
                   className="w-4 h-4 pt-1 hover:cursor-pointer"
-                />
-                <img
-                  src={logoutIcon}
-                  alt="logout"
-                  className="w-4 h-4 pt-1 hover:cursor-pointer"
-                  onClick={handleLogout}
+                  onClick={toggleDropdown}
                 />
               </div>
             </div>
+            {dropdownVisible && (
+              <div ref={dropdownRef}>
+                <DropdownMenu onClose={() => setDropdownVisible(false)} />
+              </div>
+            )}
           </div>
         ) : (
           <div className="flex space-x-4">

@@ -124,7 +124,7 @@ const CreatePromo = ({ onClose, onUpdate }) => {
               />
               <Index
               deskripsi="Terms & Conditions"
-              name="term_condition"
+              name="terms_condition"
               placeholder="Enter terms & conditions"
               required
 

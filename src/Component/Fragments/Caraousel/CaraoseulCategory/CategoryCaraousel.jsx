@@ -4,6 +4,7 @@ import useGetData from "../../../../hooks/useGatedata";
 import styled from "styled-components";
 import Button from "../../../Element/Button/Button";
 import Location from "../../../../assets/icon/Location.png";
+import { Link } from "react-router-dom";
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
@@ -55,7 +56,7 @@ const CarouselCategory = () => {
 
   useEffect(() => {
     const fetchCategory = async () => {
-      const res = await getData("categories");
+      const res = await getData("activities");
       if (res && res.data) {
         setCategories(res.data.data);
       }
@@ -95,12 +96,12 @@ const CarouselCategory = () => {
     <div className="h-auto px-8 py-8 mx-20 mt-10 bg-green-800 rounded-lg bg-opacity-10 carousel-category ">
       <div className="relative p-6 mb-8 text-center">
         <div className="flex justify-center gap-2">
-            <img src={Location} alt="img" className="w-8 h-8" />
-            <h1 className="relative pb-4 text-3xl font-bold text-green-900">
-          Choose Your Dream Destination
-        </h1>
+          <img src={Location} alt="img" className="w-8 h-8" />
+          <h1 className="relative pb-4 text-3xl font-bold text-green-900">
+            Choose Your Dream Destination
+          </h1>
         </div>
-     
+
         <p className="text-2xl font-normal text-green-600">
           Explore a wide range of categories and find your perfect getaway. Book
           now and embark on your adventure!
@@ -112,24 +113,30 @@ const CarouselCategory = () => {
           <div key={category.id} className="relative cursor-pointer">
             <div className="relative carousel-item hover:scale-105">
               <img
-                src={category.imageUrl}
+                src={category.imageUrls}
                 alt={category.title}
                 className="carousel-image"
               />
-         
+
               <div className="absolute inset-0 flex items-center justify-center rounded-lg">
                 <div className="text-center text-white">
-                  <h3 className="mb-2 text-lg font-bold carousel-text">{category.title}</h3>
-                  <p className="text-xl font-bold carousel-text">{category.name}</p>
+                  <h3 className="mb-2 text-lg font-bold carousel-text">
+                    {category.title}
+                  </h3>
+                  <p className="text-xl font-bold carousel-text">
+                    {category.name}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         ))}
       </StyledSlider>
-      <div className="flex items-center justify-center mt-12 ">
-        <Button text="See All Categories" className="w-1/4" />
-      </div>
+      <Link to={"/activityUser"}>
+        <div className="flex items-center justify-center mt-12 ">
+          <Button text="See All Activities" className="w-1/4" />
+        </div>
+      </Link>
     </div>
   );
 };
