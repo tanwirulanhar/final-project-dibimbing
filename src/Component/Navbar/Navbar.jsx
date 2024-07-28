@@ -13,7 +13,8 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null); // Ref untuk dropdown
+  const [menuOpen, setMenuOpen] = useState(false); // State untuk menu mobile
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -55,7 +56,6 @@ const Navbar = () => {
     };
   }, [lastScrollY]);
 
-  // Tambahkan event listener untuk menangani klik di luar dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -81,17 +81,35 @@ const Navbar = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <div
-      className={`sticky top-0 z-20 p-2 px-14 bg-white shadow-lg bg-opacity-80 transition-transform duration-300 h-auto ${
+      className={`sticky top-0 z-20 p-2 px-4 bg-white shadow-lg bg-opacity-80 transition-transform duration-300 h-auto ${
         showNavbar ? "transform translate-y-0" : "transform -translate-y-full"
       }`}
     >
       <div className="container flex items-center justify-between px-4 py-2 mx-auto">
-        <img className="object-cover h-12 mt-2 cursor-pointer w-28 md:w-32" src={logo} alt="logo" onClick={handleLogoClick} />
+        <img
+          className="object-cover h-12 mt-2 cursor-pointer w-28 md:w-32"
+          src={logo}
+          alt="logo"
+          onClick={handleLogoClick}
+        />
 
         <div className="items-center hidden space-x-6 md:flex">
           {userData ? <Navlist userRole={userData.role} /> : <Navlist />}
+        </div>
+
+        <div className="md:hidden">
+          <button
+            className="text-green-600 focus:outline-none"
+            onClick={toggleMenu}
+          >
+            &#9776;
+          </button>
         </div>
 
         {userData ? (
@@ -122,7 +140,7 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          <div className="flex space-x-4">
+          <div className="hidden space-x-4 md:flex">
             <Link to="/login">
               <Button text="Sign In" marginClass="mr-4" />
             </Link>
@@ -132,6 +150,12 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {menuOpen && (
+        <div className="flex flex-col items-center mt-4 space-y-4 md:hidden">
+          <Navlist userRole={userData?.role} />
+        </div>
+      )}
     </div>
   );
 };

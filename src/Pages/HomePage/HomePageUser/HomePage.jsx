@@ -15,9 +15,9 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Navbar />
-      <div className="flex gap-16" data-aos="fade-up">
+      <div className="flex flex-col-reverse -top-20 lg:flex-row lg:gap-16" data-aos="fade-up">
         <HomePageContent />
         <HeroSection height="h-362" width="w-500" />
       </div>
