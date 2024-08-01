@@ -74,7 +74,7 @@ const PromoUser = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="relative flex flex-col p-4 bg-slate-200 lg:flex-row lg:px-10" data-aos="fade-up">
+      <div className="relative flex flex-col p-4 bg-black bg-opacity-5 lg:flex-row lg:px-10" data-aos="fade-up">
         <div className="relative p-6 mb-8 bg-gray-100 rounded-lg lg:w-1/3 lg:mb-0">
           <h1 className="text-2xl font-bold text-center text-green-900 md:text-3xl">
             Discover Unbeatable Travel Deals with Backpacker!
