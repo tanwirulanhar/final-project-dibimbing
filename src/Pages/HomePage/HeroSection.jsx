@@ -6,7 +6,7 @@ import vector from "../../assets/Group-2.png";
 
 const HeroSection = ({ height, width }) => {
   return (
-    <div className="relative z-10 justify-between hidden w-full h-10 min-h-screen overflow-hidden lg:flex pl-14">
+    <div className="relative z-10 justify-between hidden w-full h-10 min-h-screen overflow-hidden -top-10 lg:flex pl-14">
       <div className="relative flex items-center justify-center ml-10 mr-10">
         <img
           src={elips}

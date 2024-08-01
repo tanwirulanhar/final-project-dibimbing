@@ -17,17 +17,17 @@ const HomePage = () => {
   return (
     <div className="overflow-x-hidden">
       <Navbar />
-      <div className="flex flex-col-reverse -top-20 lg:flex-row lg:gap-16" data-aos="fade-up">
+      <div className="flex flex-col-reverse lg:flex-row lg:gap-16 lg:items-start" data-aos="fade-up">
         <HomePageContent />
-        <HeroSection height="h-362" width="w-500" />
+        <HeroSection height="h-auto" width="w-500" className="hidden lg:block" />
       </div>
-      <div data-aos="fade-up">
+      <div data-aos="fade-up" className="w-full lg:mt-0">
         <CarauselPromo />
       </div>
-      <div data-aos="fade-up">
+      <div data-aos="fade-up" className="w-full mt-8 lg:mt-16">
         <CategoryCaraosel />
       </div>
-      <div data-aos="fade-up">
+      <div data-aos="fade-up" className="w-full mt-8 lg:mt-16">
         <Banner />
       </div>
       <Footer />

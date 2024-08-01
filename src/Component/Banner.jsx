@@ -20,11 +20,10 @@ const Banner = () => {
     fetchData();
   }, [getData])
 
-  
   return (
     <div css={mainContainer}>
-      <h1 className="pt-8 mb-4 text-3xl font-bold text-center text-green-800 ">Highlight Destination</h1>
-      <p className='mb-16 font-semibold text-center text-green-600 '>"Discover Your Dream Destinations"</p>
+      <h1 className="pt-8 mb-4 text-3xl font-bold text-center text-green-800">Highlight Destination</h1>
+      <p className="mb-16 font-semibold text-center text-green-600">"Discover Your Dream Destinations"</p>
       <Carousel
         indicators={false}
         navButtonsAlwaysVisible={true}
@@ -39,7 +38,7 @@ const Banner = () => {
         {chunkArray(banners, 3).map((chunk, index) => (
           <Grid container spacing={4} key={index} justifyContent="center">
             {chunk.map((item) => (
-              <Grid item key={item.id}>
+              <Grid item xs={12} sm={6} md={4} key={item.id}>
                 <Item item={item} />
               </Grid>
             ))}
@@ -68,8 +67,10 @@ const chunkArray = (array, chunkSize) => {
 }
 
 const mainContainer = css`
-
-  padding: 40px;
+  padding: 20px 10px;
+  @media (min-width: 640px) {
+    padding: 40px 20px;
+  }
 `;
 
 const itemPaper = css`
@@ -79,7 +80,7 @@ const itemPaper = css`
   }
   border-radius: 16px;
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   padding: 6px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 `;

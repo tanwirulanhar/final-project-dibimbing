@@ -104,7 +104,7 @@ const Navbar = () => {
           {userData ? <Navlist userRole={userData.role} /> : <Navlist />}
         </div>
 
-        <div className="md:hidden">
+        <div className="justify-end md:hidden justify">
           <button
             className="text-green-600 focus:outline-none"
             onClick={toggleMenu}
@@ -146,11 +146,11 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          <div className="hidden space-x-4 md:flex">
+          <div className="space-x-4 md:flex">
             <Link to="/login">
               <Button text="Sign In" marginClass="mr-4" />
             </Link>
-            <Link to="/register">
+            <Link to="/register" className="hidden lg:block">
               <Button text="Sign Up" />
             </Link>
           </div>

@@ -5,8 +5,6 @@ import promoIcon from "../../../../assets/icon/promo.png";
 import Button from "../../../Element/Button/Button";
 import { useNavigate } from 'react-router-dom';
 
-
-
 const CarouselPromo = () => {
   const { getData } = useGetData();
   const [promos, setPromos] = useState([]);
@@ -48,7 +46,6 @@ const CarouselPromo = () => {
         },
       },
     ],
-
   };
   
   const handleNavigate = () => {
@@ -59,20 +56,18 @@ const CarouselPromo = () => {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price);
   };
 
-
   return (
-    <div className="h-auto px-8 py-8 mx-auto bg-white rounded-lg carousel-promo">
-      
-      <div className="relative p-6 mb-8 text-center">
-        <h1 className="relative pb-4 text-3xl font-bold text-green-900">
+    <div className="h-auto px-4 pb-8 mx-auto rounded-lg lg:px-8 carousel-promo lg:-top-52">
+      <div className="relative p-4 mb-8 text-center lg:p-6">
+        <h1 className="relative pb-4 text-2xl font-bold text-green-900 lg:text-3xl">
           Limited-Time Offers on Top Destinations
           <img
             src={promoIcon}
             alt="Promo Icon"
-            className="absolute w-6 h-6 mt-2 mr-4 -top-4 right-96 "
+           className="absolute hidden w-6 h-6 mt-2 mr-4 lg:block -top-4 right-1/2 lg:right-96"
           />
         </h1>
-        <p className="text-2xl font-normal text-green-600">
+        <p className="text-xl font-normal text-green-600 lg:text-2xl">
           Unlock special savings on top destinations. Book now and start your
           adventure!
         </p>
@@ -85,15 +80,14 @@ const CarouselPromo = () => {
               <img
                 src={promo.imageUrl}
                 alt={promo.title}
-                className="object-cover w-full h-64 rounded-lg"
+                className="object-cover w-full h-48 rounded-lg lg:h-64"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-white bg-black bg-opacity-50 rounded-lg">
-                <h3 className="mb-2 text-lg font-bold">{promo.title}</h3>
-
-                <p className="text-sm font-bold text-white ">
-                    Promo &nbsp;&nbsp;
+                <h3 className="mb-2 text-sm font-bold lg:text-lg">{promo.title}</h3>
+                <p className="text-xs font-bold text-white lg:text-sm">
+                  Promo &nbsp;&nbsp;
                   <s className="text-green-400">
-                     {formatPrice(promo.promo_discount_price)}
+                    {formatPrice(promo.promo_discount_price)}
                   </s>
                 </p>
               </div>
@@ -101,9 +95,8 @@ const CarouselPromo = () => {
           </div>
         ))}
       </Slider>
-      <div className="flex items-center justify-center mt-12 ">
-        
-        <Button onClick={handleNavigate} text="See All Promo" className="w-1/4" />
+      <div className="flex items-center justify-center mt-12">
+        <Button onClick={handleNavigate} text="See All Promo" className="w-3/4 lg:w-1/4" />
       </div>
     </div>
   );
