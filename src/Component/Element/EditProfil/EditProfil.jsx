@@ -4,19 +4,23 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import Popup from "../Popup/Popup";
 import DashboardBackground from "../../DashboardBackground/DashboardBackground";
+import useUpload  from "../../../hooks/useUpload";
 
 const EditProfile = () => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     profilePictureUrl: "",
-    role: "", // Tambahkan state untuk menyimpan peran pengguna
+    role: "",
   });
   const [newProfilePicture, setNewProfilePicture] = useState(null);
+  const [previewImageUrl, setPreviewImageUrl] = useState(""); // State untuk URL gambar pratinjau
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("success");
+  const [loading, setLoading] = useState(false); // State loading
   const navigate = useNavigate();
+  const { upload } = useUpload();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,6 +37,7 @@ const EditProfile = () => {
           }
         );
         setUserData(response.data.data);
+        setPreviewImageUrl(response.data.data.profilePictureUrl); // Set URL gambar awal
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -50,7 +55,16 @@ const EditProfile = () => {
   };
 
   const handleFileChange = (e) => {
-    setNewProfilePicture(e.target.files[0]);
+    const file = e.target.files[0];
+    setNewProfilePicture(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImageUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -63,7 +77,20 @@ const EditProfile = () => {
       formData.append("name", userData.name);
       formData.append("email", userData.email);
       if (newProfilePicture) {
-        formData.append("profilePicture", newProfilePicture);
+        formData.append("profileImage", newProfilePicture);
+      }
+
+      // Jika Anda ingin meng-upload gambar terlebih dahulu, Anda bisa memisahkan
+      // logika upload gambar ke bagian ini dan mendapatkan URL-nya.
+      if (newProfilePicture) {
+        setLoading(true);
+        const imageFormData = new FormData();
+        imageFormData.append("image", newProfilePicture);
+        const imageRes = await upload("upload-image", imageFormData);
+        formData.append("profilePictureUrl", imageRes.data.url);
+        setLoading(false);
+      } else {
+        formData.append("profilePictureUrl", userData.profilePictureUrl);
       }
 
       await axios.post(
@@ -85,9 +112,9 @@ const EditProfile = () => {
       setTimeout(() => {
         setShowPopup(false);
         if (userData.role === "admin") {
-          navigate("/homepageadmin/alluser"); // Rute halaman admin
+          navigate("/homepageadmin/alluser");
         } else {
-          navigate("/"); // Rute halaman user
+          navigate("/");
         }
       }, 2000);
     } catch (error) {
@@ -104,16 +131,15 @@ const EditProfile = () => {
 
   const handleCancel = () => {
     if (userData.role === "admin") {
-      navigate("/homepageadmin/alluser"); // Rute halaman admin
+      navigate("/homepageadmin/alluser");
     } else {
-      navigate("/"); // Rute halaman user
+      navigate("/");
     }
   };
 
   return (
     <div className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gray-100">
-      <DashboardBackground className="absolute inset-0 w-full h-full" />{" "}
-      {/* Tambahkan className untuk gaya CSS */}
+      <DashboardBackground className="absolute inset-0 w-full h-full" />
       <div className="relative z-10 w-full max-w-lg p-8 bg-white rounded-lg shadow-md">
         <h2 className="mb-6 text-3xl font-semibold text-center text-green-800">
           Edit Profile
@@ -155,10 +181,10 @@ const EditProfile = () => {
               onChange={handleFileChange}
               className="block w-full mt-1 text-sm text-gray-500"
             />
-            {userData.profilePictureUrl && (
+            {previewImageUrl && (
               <img
-                src={userData.profilePictureUrl}
-                alt="Profile"
+                src={previewImageUrl}
+                alt="Profile Preview"
                 className="w-24 h-24 mx-auto mt-4 rounded-full"
               />
             )}

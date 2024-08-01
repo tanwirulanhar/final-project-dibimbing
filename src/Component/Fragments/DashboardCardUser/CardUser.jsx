@@ -9,7 +9,7 @@ const CardUser = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const usersPerPage = 6;
+  const usersPerPage = 8; // 4 kartu per kolom, 3 baris per halaman
 
   const fetchDataAllUser = async () => {
     try {
@@ -71,12 +71,12 @@ const CardUser = () => {
   };
 
   return (
-    <div className="relative z-10 flex flex-col justify-between p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 h-634 rounded-2xl ">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+    <div className="sticky z-10 flex flex-col justify-between h-screen p-6 mt-2 mb-20 shadow-2xl bg-slate-100 rounded-2xl ">
+      <div className="grid grid-cols-4 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {currentUsers.map((data) => (
           <div
             key={data.id}
-            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            className="relative flex flex-col w-full p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
           >
             <img
               className="object-cover w-full h-40 mb-2 rounded-lg"
@@ -84,7 +84,7 @@ const CardUser = () => {
               alt="profile"
             />
             <div className="flex justify-between">
-              <div className="">
+              <div>
                 <h2 className="text-sm font-semibold">{data.name}</h2>
                 <p className="text-sm text-gray-600">{data.email}</p>
                 <p className="text-sm text-gray-600">{data.phoneNumber}</p>

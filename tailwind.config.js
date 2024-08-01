@@ -23,6 +23,10 @@ export default {
         634: "634px",
      
       },
+      zIndex: {
+        '30': '30',
+        '50': '50',
+      }
     },
   },
   plugins: [],

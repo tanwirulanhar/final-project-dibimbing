@@ -31,6 +31,7 @@ const Navbar = () => {
           }
         );
         setUserData(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -71,7 +72,7 @@ const Navbar = () => {
 
   const handleLogoClick = () => {
     if (userData?.role === "admin") {
-      navigate('/homepageadmin/alluser');
+      navigate("/homepageadmin/alluser");
     } else {
       navigate("/");
     }
@@ -87,7 +88,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`sticky top-0 z-20 p-2 px-4 bg-white shadow-lg bg-opacity-80 transition-transform duration-300 h-auto ${
+      className={`sticky top-0 z-40 p-2 px-4 bg-white shadow-lg bg-opacity-80 transition-transform duration-300 h-auto ${
         showNavbar ? "transform translate-y-0" : "transform -translate-y-full"
       }`}
     >
@@ -114,13 +115,18 @@ const Navbar = () => {
 
         {userData ? (
           <div className="relative flex items-center space-x-4">
-            {userData.profilePictureUrl && (
+            {userData.profilePictureUrl ? (
               <img
                 src={userData.profilePictureUrl}
-                alt="img"
+                alt="Profile"
                 className="w-8 h-8 rounded-full"
               />
+            ) : (
+              <div className="flex items-center justify-center w-8 h-8 text-gray-600 bg-gray-200 rounded-full">
+                <span>{userData.name.charAt(0)}</span>
+              </div>
             )}
+
             <div>
               <span className="font-medium">{userData.name}</span>
               <div className="flex items-center gap-3">

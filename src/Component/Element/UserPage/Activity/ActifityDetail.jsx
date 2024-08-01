@@ -59,7 +59,7 @@ const ActivityDetailCard = () => {
       <div className="p-8">
         <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-md" data-aos="fade-up">
           <img
-            src={activity.imageUrls}
+            src={activity.imageUrls[0]}
             alt={activity.title}
             className="object-cover w-full mb-6 rounded-lg h-96"
             data-aos="fade-up"

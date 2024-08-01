@@ -10,6 +10,7 @@ import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
 import PopupDashboard from "../../Element/Popup/PopUpDashboard";
 import useGetData from "../../../hooks/useGatedata";
+import Search from "../../Element/Search/Search";
 
 const DashboardActivity = () => {
   const { getData } = useGetData();
@@ -26,8 +27,6 @@ const DashboardActivity = () => {
 
   const activitiesPerPage = 6;
   const { deleteData } = useDelete();
-
-
 
   const fetchDataActivity = async () => {
     try {
@@ -121,111 +120,111 @@ const DashboardActivity = () => {
   };
 
   return (
-    <>
-      <div className="relative z-10 flex flex-col justify-between h-auto p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 rounded-2xl">
+    <div className="relative z-10 flex flex-col justify-between w-full h-auto p-6 shadow-2xl bg-slate-100 rounded-2xl">
+      <div className="flex justify-between">
+        <Search />
         <Button
           onClick={handleCreateActivityOpen}
           text="Create Activity"
           className="self-end mb-4"
         />
+      </div>
 
-        <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-          {currentActivities.map((activity) => (
-            <div
-              key={activity.id}
-              className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
-            >
+      <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+        {currentActivities.map((activity) => (
+          <div
+            key={activity.id}
+            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+          >
+            <img
+              className="object-cover w-full h-40 mb-4 rounded-lg"
+              src={activity.imageUrls[0] || "placeholder-image-url"}
+              alt="activity"
+            />
+            <h2 className="text-sm font-bold text-green-500">
+              {activity.title}
+            </h2>
+            <p className="text-sm text-gray-600">
+              Created: {format(new Date(activity.createdAt), "dd-MM-yyyy")}
+            </p>
+            <p className="text-sm text-gray-600">
+              Last Updated: {format(new Date(activity.updatedAt), "dd-MM-yyyy")}
+            </p>
+            <div className="absolute flex space-x-2 bottom-2 right-2">
               <img
-                className="object-cover w-full h-40 mb-4 rounded-lg"
-                src={activity.imageUrls[0] || "placeholder-image-url"}
-                alt="activity"
+                src={update}
+                alt="edit"
+                className="w-5 h-5 cursor-pointer"
+                onClick={() => handleEditActivity(activity)}
               />
-              <h2 className="text-sm font-bold text-green-500">
-                {activity.title}
-              </h2>
-              <p className="text-sm text-gray-600">
-                Created: {format(new Date(activity.createdAt), "dd-MM-yyyy")}
-              </p>
-              <p className="text-sm text-gray-600">
-                Last Updated:{" "}
-                {format(new Date(activity.updatedAt), "dd-MM-yyyy")}
-              </p>
-              <div className="absolute flex space-x-2 bottom-2 right-2">
-                <img
-                  src={update}
-                  alt="edit"
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={() => handleEditActivity(activity)}
-                />
-                <img
-                  src={hapus}
-                  alt="delete"
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={() => handleDeleteActivity(activity)}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex justify-center mt-4 mb-2 space-x-2">
-          <Button
-            onClick={handlePrevPage}
-            text="Back"
-            disabled={currentPage === 1}
-          />
-          <Button
-            onClick={handleNextPage}
-            text="Next"
-            disabled={currentPage === totalPages}
-          />
-        </div>
-
-        {showCreateActivity && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-            <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-lg md:w-4/5">
-              <h2 className="mb-4 text-2xl font-bold text-center text-green-600">
-                Create Activity
-              </h2>
-              <CreateActivity
-                onClose={handleCreateActivityClose}
-                onUpdate={fetchDataActivity}
+              <img
+                src={hapus}
+                alt="delete"
+                className="w-5 h-5 cursor-pointer"
+                onClick={() => handleDeleteActivity(activity)}
               />
             </div>
           </div>
-        )}
+        ))}
+      </div>
 
-        {showUpdateActivity && selectedActivity && (
-          <div >
-            <UpdateActivity
-              onClose={handleUpdateActivityClose}
+      <div className="flex justify-center mt-4 mb-2 space-x-2">
+        <Button
+          onClick={handlePrevPage}
+          text="Back"
+          disabled={currentPage === 1}
+        />
+        <Button
+          onClick={handleNextPage}
+          text="Next"
+          disabled={currentPage === totalPages}
+        />
+      </div>
+
+      {showCreateActivity && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
+          <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-lg md:w-4/5">
+            <h2 className="mb-4 text-2xl font-bold text-center text-green-600">
+              Create Activity
+            </h2>
+            <CreateActivity
+              onClose={handleCreateActivityClose}
               onUpdate={fetchDataActivity}
-              activityData={selectedActivity}
             />
           </div>
-        )}
+        </div>
+      )}
 
-        {showConfirmDelete && (
-          <ConfirmDelete
-            onConfirm={confirmDelete}
-            onCancel={cancelDelete}
-            message={`Are you sure you want to delete this activity?`}
+      {showUpdateActivity && selectedActivity && (
+        <div>
+          <UpdateActivity
+            onClose={handleUpdateActivityClose}
+            onUpdate={fetchDataActivity}
+            activityData={selectedActivity}
           />
-        )}
+        </div>
+      )}
 
-        {popupVisible && (
-          <PopupDashboard
-            visible={popupVisible}
-            onClose={() => {
-              setPopupVisible(false);
-              console.log("Popup closed");
-            }}
-            type={popupType}
-            message={popupMessage}
-          />
-        )}
-      </div>
-    </>
+      {showConfirmDelete && (
+        <ConfirmDelete
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+          message={`Are you sure you want to delete this activity?`}
+        />
+      )}
+
+      {popupVisible && (
+        <PopupDashboard
+          visible={popupVisible}
+          onClose={() => {
+            setPopupVisible(false);
+            console.log("Popup closed");
+          }}
+          type={popupType}
+          message={popupMessage}
+        />
+      )}
+    </div>
   );
 };
 

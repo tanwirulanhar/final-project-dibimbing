@@ -6,6 +6,8 @@ import useGetData from "../../../../hooks/useGatedata";
 import Footer from "../../../Footer/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import red from "../../../../assets/icon/red.png";
+import green from "../../../../assets/icon/green.png";
 
 const PromoUser = () => {
   const { getData } = useGetData();
@@ -132,30 +134,31 @@ const PromoUser = () => {
                       <p className="pb-1 text-sm font-bold text-green-700">
                         Promo Discount Price : &nbsp;&nbsp;
                         <span className="text-green-500">
-                     
                           {formatPrice(data.promo_discount_price)}
                         </span>
                       </p>
-                      <p className="pb-8 text-sm font-bold text-green-700">
+                      <p className="text-sm font-bold text-green-700 ">
                         Term Condition : &nbsp;&nbsp;
                         <span className="font-semibold text-green-400">
                           {data.terms_condition}
                         </span>
                       </p>
-                      <p className="text-sm font-semibold text-gray-600">
-                        Created: &nbsp;&nbsp;{" "}
-                        <span className="text-green-500">
-                          {" "}
-                          {new Date(data.createdAt).toLocaleDateString()}
-                        </span>
-                      </p>
-                      <p className="text-sm font-semibold text-gray-600">
-                        Last Updated:&nbsp;&nbsp;
-                        <span className="text-green-500">
-                          {" "}
-                          {new Date(data.updatedAt).toLocaleDateString()}
-                        </span>
-                      </p>
+                      <div className="flex gap-6 pt-16">
+                        <p className="flex gap-2 text-sm font-semibold ">
+                          <img src={red} alt="img" />
+                          <span className="text-green-700">
+                            {" "}
+                            {new Date(data.createdAt).toLocaleDateString()}
+                          </span>
+                        </p>
+                        <p className="flex gap-2 text-sm font-semibold ">
+                          <img src={green} alt="img" />
+                          <span className="text-green-700">
+                            {" "}
+                            {new Date(data.updatedAt).toLocaleDateString()}
+                          </span>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -36,7 +36,7 @@ const ProtectedRoute = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or any loading indicator you prefer
+    return <div>Loading...</div>; 
   }
 
   return isAdmin ? <Outlet /> : <Navigate to="/" />;

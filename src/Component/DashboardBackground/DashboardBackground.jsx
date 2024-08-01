@@ -5,7 +5,7 @@ import gambarbulat2 from "../../assets/Ellipse-4.png";
 
 const DashboardBackground = () => {
   return (
-    <div className="absolute left-0 w-full h-full top-10" z-0>
+    <div className="absolute z-0 w-full h-full bg-gray-100" >
       <div className="relative mb-10">
         <div className="flex">
           <img

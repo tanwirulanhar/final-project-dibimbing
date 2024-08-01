@@ -19,6 +19,7 @@ import Activity from "./Component/Element/UserPage/Activity/Activity.jsx";
 import ActivityDetailCard from "./Component/Element/UserPage/Activity/ActifityDetail.jsx";
 import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 import EditProfile from "./Component/Element/EditProfil/EditProfil.jsx";
+import Search from "./Component/Element/Search/Search.jsx";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
   {
     path: "/editprofil",
     element: <EditProfile/>
+  },
+  {
+    path: "search",
+    element: <Search/>
   }
 ]);
 

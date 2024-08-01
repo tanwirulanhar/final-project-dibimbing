@@ -106,7 +106,7 @@ const DashboardCategory = () => {
   };
 
   return (
-    <div className="relative z-10 flex flex-col justify-between h-auto p-6 mt-2 mb-10 mr-32 shadow-2xl bg-slate-100 rounded-2xl">
+    <div className="sticky z-10 flex flex-col justify-between h-screen p-6 mt-2 mb-20 shadow-2xl bg-slate-100 rounded-2xl">
       <Button
         onClick={() => setShowCreateCategory(true)}
         text="Create Category"

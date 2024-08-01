@@ -5,8 +5,10 @@ import gambarBanner from "../../../../assets/Banner-Activity.png";
 import Footer from "../../../Footer/Footer";
 import Navbar from "../../../Navbar/Navbar";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import Star from "../../../../assets/icon/Star.png";
 import AOS from "aos";
+import red from "../../../../assets/icon/red.png";
+import green from "../../../../assets/icon/green.png";
 import "aos/dist/aos.css";
 
 const Activity = () => {
@@ -30,7 +32,7 @@ const Activity = () => {
   const settings2 = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 2000,
     slidesToShow: 3,
     slidesToScroll: 3,
   };
@@ -67,7 +69,7 @@ const Activity = () => {
                 {activity.map((data) => (
                   <div key={data.id} className="relative" data-aos="fade-up">
                     <img
-                      src={data.imageUrls}
+                      src={data.imageUrls[0]}
                       alt="Activity"
                       className="object-cover w-full h-96"
                     />
@@ -83,8 +85,16 @@ const Activity = () => {
       </div>
 
       <div className="items-center justify-center mt-24 column">
-        <h1 className="mb-6 text-4xl font-bold text-center text-green-800" data-aos="fade-down">Our Activity</h1>
-        <p className="text-2xl font-normal text-center text-green-600 px-28 " data-aos="fade-up">
+        <h1
+          className="mb-6 text-4xl font-bold text-center text-green-800"
+          data-aos="fade-down"
+        >
+          Our Activity
+        </h1>
+        <p
+          className="text-2xl font-normal text-center text-green-600 px-28 "
+          data-aos="fade-up"
+        >
           Unleash your adventurous spirit with our curated activities. From
           thrilling outdoor escapades to serene nature walks, we have something
           for everyone. Join us and create unforgettable memories.
@@ -103,23 +113,42 @@ const Activity = () => {
                       src={data.imageUrls[0] || "placeholder-image-url"}
                       alt="activity"
                     />
-                    <h2 className="text-sm font-bold text-green-500">
-                      {data.title}
-                    </h2>
-                    <p className="text-sm text-gray-600">
-                      Created: {format(new Date(data.createdAt), "dd-MM-yyyy")}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Last Updated:{" "}
-                      {format(new Date(data.updatedAt), "dd-MM-yyyy")}
-                    </p>
+                    <div className="flex justify-between">
+                      <h2 className="text-sm font-bold text-green-500">
+                        {data.title}
+                      </h2>
+                      <div className="flex">
+                        <p className="text-green-800">{data.rating}</p>
+                        <img src={Star} alt="img" className="w-4 h-4 mt-1 " />
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 pt-2 pb-2 ">
+                      <p className="flex gap-2 text-sm font-semibold ">
+                        <img src={red} alt="img" />
+                        <span className="text-green-700">
+                          {" "}
+                          {new Date(data.createdAt).toLocaleDateString()}
+                        </span>
+                      </p>
+                      <p className="flex gap-2 text-sm font-semibold ">
+                        <img src={green} alt="img" />
+                        <span className="text-green-700">
+                          {" "}
+                          {new Date(data.updatedAt).toLocaleDateString()}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </Link>
               </div>
             ))}
           </Slider>
         </div>
-        <div className="flex flex-col items-center justify-center w-1/2 p-8" data-aos="fade-left">
+        <div
+          className="flex flex-col items-center justify-center w-1/2 p-8"
+          data-aos="fade-left"
+        >
           <h1 className="mb-6 text-2xl font-bold text-white">
             Adventure Awaits
           </h1>

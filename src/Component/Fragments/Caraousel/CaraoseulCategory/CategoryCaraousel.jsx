@@ -112,11 +112,13 @@ const CarouselCategory = () => {
         {categories.map((category) => (
           <div key={category.id} className="relative cursor-pointer">
             <div className="relative carousel-item hover:scale-105">
-              <img
-                src={category.imageUrls}
-                alt={category.title}
-                className="carousel-image"
-              />
+            {category.imageUrls && category.imageUrls.length > 0 && (
+                <img
+                  src={category.imageUrls[0]} 
+                  alt={category.title}
+                  className="carousel-image"
+                />
+              )}
 
               <div className="absolute inset-0 flex items-center justify-center rounded-lg">
                 <div className="text-center text-white">
