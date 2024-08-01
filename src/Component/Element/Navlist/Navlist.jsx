@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
 
 const Navlist = ({ userRole }) => {
-  const navItems = userRole === "admin"
-    ? [{ name: "Dashboard", path: "/homepageadmin/alluser" }]
-    : [
+  const navItems =
+    userRole === "admin"
+      ? [
         { name: "Home", path: "/" },
         { name: "Promo", path: "/promoUser" },
         { name: "Activity", path: "/activityUser" },
-      ];
+        { name: "Dashboard", path: "/homepageadmin/alluser" },
+      ]
+      : [
+          { name: "Home", path: "/" },
+          { name: "Promo", path: "/promoUser" },
+          { name: "Activity", path: "/activityUser" },
+        ];
 
   return (
     <>

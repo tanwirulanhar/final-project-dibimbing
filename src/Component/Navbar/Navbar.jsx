@@ -13,7 +13,7 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // State untuk menu mobile
+  const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {

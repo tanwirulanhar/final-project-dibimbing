@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { format } from "date-fns";
 import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
@@ -9,12 +8,13 @@ import UpdateActivity from "../../Element/Modals/ModalsActivity/ModalsUpdateActi
 import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
 import PopupDashboard from "../../Element/Popup/PopUpDashboard";
-import useGetData from "../../../hooks/useGatedata";
+import useGetData from "../../../hooks/useGatedata"; // pastikan ini benar
 import Search from "../../Element/Search/Search";
 
 const DashboardActivity = () => {
   const { getData } = useGetData();
   const [data, setData] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showCreateActivity, setShowCreateActivity] = useState(false);
   const [showUpdateActivity, setShowUpdateActivity] = useState(false);
@@ -43,12 +43,15 @@ const DashboardActivity = () => {
 
   const indexOfLastActivity = currentPage * activitiesPerPage;
   const indexOfFirstActivity = indexOfLastActivity - activitiesPerPage;
-  const currentActivities = data.slice(
-    indexOfFirstActivity,
-    indexOfLastActivity
-  );
+  const currentActivities =
+    searchResults.length > 0
+      ? searchResults.slice(indexOfFirstActivity, indexOfLastActivity)
+      : data.slice(indexOfFirstActivity, indexOfLastActivity);
 
-  const totalPages = Math.ceil(data.length / activitiesPerPage);
+  const totalPages = Math.ceil(
+    (searchResults.length > 0 ? searchResults.length : data.length) /
+      activitiesPerPage
+  );
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -91,12 +94,17 @@ const DashboardActivity = () => {
         if (res.status === 200) {
           setPopupType("success");
           setPopupMessage("Activity berhasil dihapus.");
+          fetchDataActivity();
+
+          const updatedSearchResults = searchResults.filter(
+            (activity) => activity.id !== activityToDelete.id
+          );
+          setSearchResults(updatedSearchResults);
         } else {
           setPopupType("error");
           setPopupMessage("Gagal menghapus activity. Status: " + res.status);
         }
         setPopupVisible(true);
-        fetchDataActivity();
       } catch (error) {
         setPopupType("error");
         setPopupMessage("Gagal menghapus activity.");
@@ -119,10 +127,20 @@ const DashboardActivity = () => {
     setShowUpdateActivity(true);
   };
 
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+    setCurrentPage(1); // Reset ke halaman pertama setelah pencarian
+  };
+
+  const handleResetSearch = () => {
+    setSearchResults([]);
+    setCurrentPage(1); // Reset ke halaman pertama setelah reset
+  };
+
   return (
     <div className="relative z-10 flex flex-col justify-between w-full h-auto p-6 shadow-2xl bg-slate-100 rounded-2xl">
       <div className="flex justify-between">
-        <Search />
+        <Search onSearch={handleSearchResults} onReset={handleResetSearch} />
         <Button
           onClick={handleCreateActivityOpen}
           text="Create Activity"
@@ -216,10 +234,7 @@ const DashboardActivity = () => {
       {popupVisible && (
         <PopupDashboard
           visible={popupVisible}
-          onClose={() => {
-            setPopupVisible(false);
-            console.log("Popup closed");
-          }}
+          onClose={() => setPopupVisible(false)}
           type={popupType}
           message={popupMessage}
         />

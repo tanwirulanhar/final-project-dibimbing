@@ -49,7 +49,7 @@ const Activity = () => {
   };
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="relative overflow-x-hidden">
       <Navbar />
       <div className="relative w-full h-full">
         <div className="flex">
@@ -64,9 +64,9 @@ const Activity = () => {
 
           {/* Carousel Section */}
           <div className="relative w-1/2 h-full">
-            {activity.length > 0 && (
-              <Slider {...settings}>
-                {activity.map((data) => (
+            <Slider {...settings}>
+              {activity.length > 0 &&
+                activity.map((data) => (
                   <div key={data.id} className="relative" data-aos="fade-up">
                     <img
                       src={data.imageUrls[0]}
@@ -74,34 +74,34 @@ const Activity = () => {
                       className="object-cover w-full h-96"
                     />
                     <p className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white bg-black bg-opacity-50">
-                      <Link to={`/activity/${data.id}`}>{data.title}</Link>
+                      {/* <Link to={`/activity/${data.id}`}>{data.title}</Link> */}
                     </p>
                   </div>
                 ))}
-              </Slider>
-            )}
+            </Slider>
           </div>
         </div>
+
       </div>
 
-      <div className="items-center justify-center mt-24 column">
+      <div className="w-full p-10 mt-10 border-l-2 border-green-500 ">
         <h1
-          className="mb-6 text-4xl font-bold text-center text-green-800"
+          className="pb-4 text-4xl font-bold text-center text-green-800 "
           data-aos="fade-down"
         >
           Our Activity
         </h1>
         <p
-          className="text-2xl font-normal text-center text-green-600 px-28 "
+          className="text-2xl font-normal text-center text-green-600 "
           data-aos="fade-up"
         >
           Unleash your adventurous spirit with our curated activities. From
           thrilling outdoor escapades to serene nature walks, we have something
-          for everyone. Join us and create unforgettable memories.
+          for everyone.
         </p>
       </div>
 
-      <div className="flex w-full gap-6 p-6 px-20 py-10 mt-10 mb-20 bg-green-700 h-96 ">
+      <div className="flex w-full gap-6 p-6 px-20 py-10 mt-10 mb-20 bg-green-700 h-96">
         <div className="w-1/2">
           <Slider {...settings2}>
             {activity.map((data) => (
@@ -119,22 +119,20 @@ const Activity = () => {
                       </h2>
                       <div className="flex">
                         <p className="text-green-800">{data.rating}</p>
-                        <img src={Star} alt="img" className="w-4 h-4 mt-1 " />
+                        <img src={Star} alt="img" className="w-4 h-4 mt-1" />
                       </div>
                     </div>
 
-                    <div className="flex gap-2 pt-2 pb-2 ">
-                      <p className="flex gap-2 text-sm font-semibold ">
+                    <div className="flex gap-2 pt-2 pb-2">
+                      <p className="flex gap-2 text-sm font-semibold">
                         <img src={red} alt="img" />
                         <span className="text-green-700">
-                          {" "}
                           {new Date(data.createdAt).toLocaleDateString()}
                         </span>
                       </p>
-                      <p className="flex gap-2 text-sm font-semibold ">
+                      <p className="flex gap-2 text-sm font-semibold">
                         <img src={green} alt="img" />
                         <span className="text-green-700">
-                          {" "}
                           {new Date(data.updatedAt).toLocaleDateString()}
                         </span>
                       </p>
