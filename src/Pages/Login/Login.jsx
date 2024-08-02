@@ -63,9 +63,9 @@ const Login = () => {
   };
 
   return (
-    <div className="relative z-40 w-full p-10 mt-20 shadow-2xl mr-44 h-400 rounded-xl">
-      <form action="" onSubmit={handleSubmit}>
-        <h1 className="text-2xl font-bold text-center text-green-800 mb-14">
+    <div className="relative z-40 w-full max-w-md p-6 mx-auto mt-10 shadow-2xl md:p-10 md:mt-20 md:max-w-lg rounded-xl">
+      <form onSubmit={handleSubmit}>
+        <h1 className="mb-8 text-xl font-bold text-center text-green-800 md:text-2xl md:mb-14">
           Sign In
         </h1>
         <Index
@@ -87,9 +87,9 @@ const Login = () => {
           required
         />
 
-        <p className="mb-4 text-center">
+        <p className="mb-4 text-sm text-center md:text-base">
           Don't have an account?{" "}
-          <Link to="/register" className="text-green-600">
+          <Link to="/register" className="font-semibold text-green-600">
             Register
           </Link>
         </p>

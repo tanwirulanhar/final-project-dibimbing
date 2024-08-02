@@ -71,36 +71,38 @@ const CardUser = () => {
   };
 
   return (
-    <div className="sticky z-10 flex flex-col justify-between h-screen p-6 mt-2 mb-20 shadow-2xl bg-slate-100 rounded-2xl ">
-      <div className="grid grid-cols-4 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {currentUsers.map((data) => (
-          <div
-            key={data.id}
-            className="relative flex flex-col w-full p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
-          >
-            <img
-              className="object-cover w-full h-40 mb-2 rounded-lg"
-              src={data.profilePictureUrl}
-              alt="profile"
-            />
-            <div className="flex justify-between">
-              <div>
-                <h2 className="text-sm font-semibold">{data.name}</h2>
-                <p className="text-sm text-gray-600">{data.email}</p>
-                <p className="text-sm text-gray-600">{data.phoneNumber}</p>
-              </div>
-              <p className="text-sm font-bold text-green-500">{data.role}</p>
-            </div>
-            <div className="absolute flex space-x-2 bottom-2 right-2">
+    <div className="sticky z-10 flex flex-col justify-between h-screen p-4 mt-2 shadow-2xl bg-slate-100 rounded-2xl">
+      <div className="flex-grow pt-10 overflow-y-auto scrollbar-hide">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {currentUsers.map((data) => (
+            <div
+              key={data.id}
+              className="relative flex flex-col w-full p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            >
               <img
-                src={update}
-                alt="edit"
-                className="w-5 h-5 cursor-pointer"
-                onClick={() => handleEditClick(data)}
+                className="object-cover w-full h-40 mb-2 rounded-lg"
+                src={data.profilePictureUrl}
+                alt="profile"
               />
+              <div className="flex justify-between">
+                <div>
+                  <h2 className="text-sm font-semibold">{data.name}</h2>
+                  <p className="text-sm text-gray-600">{data.email}</p>
+                  <p className="text-sm text-gray-600">{data.phoneNumber}</p>
+                </div>
+                <p className="text-sm font-bold text-green-500">{data.role}</p>
+              </div>
+              <div className="absolute flex space-x-2 bottom-2 right-2">
+                <img
+                  src={update}
+                  alt="edit"
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => handleEditClick(data)}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div className="flex justify-center mt-4 space-x-2">

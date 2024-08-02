@@ -106,47 +106,51 @@ const DashboardBanner = () => {
   };
 
   return (
-    <div className="sticky z-10 flex flex-col justify-between h-full p-6 mt-2 mb-20 shadow-2xl bg-slate-100 rounded-2xl">
+    <div className="sticky z-10 flex flex-col justify-between h-screen p-4 mt-2 shadow-2xl bg-slate-100 rounded-2xl">
       <Button
         onClick={() => setShowCreateBanner(true)}
         text="Create Banner"
         className="self-end mb-4"
       />
 
-      <div className="grid grid-cols-4 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-        {currentUsers.map((data) => (
-          <div
-            key={data.id}
-            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
-          >
-            <img
-              className="object-cover w-full h-40 mb-4 rounded-lg"
-              src={data.imageUrl}
-              alt="banner"
-            />
-            <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
-            <p className="text-sm text-gray-600">
-              Created: {format(new Date(data.createdAt), "dd-MM-yyyy")}
-            </p>
-            <p className="text-sm text-gray-600">
-              Last Updated: {format(new Date(data.updatedAt), "dd-MM-yyyy")}
-            </p>
-            <div className="absolute flex space-x-2 bottom-2 right-2">
+      <div className="flex-grow p-8 pt-10 overflow-y-auto scrollbar-hide">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {currentUsers.map((banner) => (
+            <div
+              key={banner.id}
+              className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            >
               <img
-                src={update}
-                alt="edit"
-                className="w-5 h-5 cursor-pointer"
-                onClick={() => handleEditBanner(data)}
+                className="object-cover w-full h-40 mb-4 rounded-lg"
+                src={banner.imageUrl}
+                alt="banner"
               />
-              <img
-                src={hapus}
-                alt="delete"
-                className="w-5 h-5 cursor-pointer"
-                onClick={() => handleDeleteBanner(data)}
-              />
+              <div className="flex flex-col p-2 space-y-2 overflow-y-auto max-h-32">
+                <h2 className="text-sm font-bold text-green-500 truncate">{banner.name}</h2>
+                <p className="text-xs text-gray-600">
+                  Created: {format(new Date(banner.createdAt), "dd-MM-yyyy")}
+                </p>
+                <p className="text-xs text-gray-600">
+                  Last Updated: {format(new Date(banner.updatedAt), "dd-MM-yyyy")}
+                </p>
+              </div>
+              <div className="absolute flex space-x-2 bottom-2 right-2">
+                <img
+                  src={update}
+                  alt="edit"
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => handleEditBanner(banner)}
+                />
+                <img
+                  src={hapus}
+                  alt="delete"
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => handleDeleteBanner(banner)}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div className="flex justify-center mt-4 mb-2 space-x-2">
@@ -154,11 +158,13 @@ const DashboardBanner = () => {
           onClick={handlePrevPage}
           text="Back"
           disabled={currentPage === 1}
+          className="px-4 py-2"
         />
         <Button
           onClick={handleNextPage}
           text="Next"
           disabled={currentPage === totalPages}
+          className="px-4 py-2"
         />
       </div>
 

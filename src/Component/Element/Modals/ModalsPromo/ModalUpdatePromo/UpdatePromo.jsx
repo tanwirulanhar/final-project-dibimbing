@@ -5,7 +5,6 @@ import PopupDashboard from "../../../Popup/PopUpDashboard";
 import Button from "../../../Button/Button";
 import Index from "../../../Input/Index";
 
-
 const UpdatePromo = ({ onClose, onUpdate, promoData }) => {
   const { update } = useUpdate();
   const { upload } = useUpload();
@@ -55,8 +54,6 @@ const UpdatePromo = ({ onClose, onUpdate, promoData }) => {
       return;
     }
 
-
-
     const updatedPromoData = {
       title: e.target.title.value,
       description: e.target.description.value,
@@ -94,14 +91,12 @@ const UpdatePromo = ({ onClose, onUpdate, promoData }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center pt-32 pb-10 bg-black bg-opacity-50">
-      <div className="w-2/3 h-auto p-10 mt-10 mb-10 bg-white rounded-lg z-60">
-        <h2 className="mb-6 text-2xl font-bold text-center text-green-700">
-          Update Promo
-        </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-black bg-opacity-50">
+      <div className="relative mt-28 mb-4 w-full max-w-2xl p-6 mx-4 md:mx-0 bg-white rounded-lg max-h-[90vh] overflow-y-auto scrollbar-hide">
+        <h2 className="mb-6 text-2xl font-bold text-center text-green-700">Update Promo</h2>
         <form onSubmit={handleUpdatePromo} className="w-full">
-          <div className="flex gap-3">
-            <div className="flex flex-col w-full gap-3 md:w-1/2">
+          <div className="flex flex-col gap-6 sm:flex-row">
+            <div className="flex flex-col w-full gap-4 sm:w-1/2">
               <Index
                 deskripsi="Title"
                 name="title"
@@ -142,17 +137,15 @@ const UpdatePromo = ({ onClose, onUpdate, promoData }) => {
                 required
               />
             </div>
-            <div className="flex flex-col w-full gap-3 md:w-1/2">
+            <div className="flex flex-col w-full gap-4 sm:w-1/2">
               <div className="flex flex-col gap-2">
-                <label htmlFor="description" className="font-semibold text-green-600">
-                  Description
-                </label>
+                <label htmlFor="description" className="font-semibold text-green-600">Description</label>
                 <textarea
                   name="description"
                   placeholder="Enter description"
                   defaultValue={promoData.description}
                   required
-                  className="w-full px-3 py-2 border border-green-500 rounded-lg"
+                  className="w-full px-3 py-2 border border-green-500 rounded-lg resize-y"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -177,11 +170,12 @@ const UpdatePromo = ({ onClose, onUpdate, promoData }) => {
                     type="submit"
                     text="Update"
                     disabled={loading}
+                    className="w-full sm:w-auto"
                   />
                   <Button
                     onClick={onClose}
                     text="Close"
-                    className="text-green-500 bg-red-500 hover:bg-red-600"
+                    className="w-full text-green-500 bg-red-500 sm:w-auto hover:bg-red-600"
                   />
                 </div>
               </div>

@@ -21,9 +21,7 @@ const CreatePromo = ({ onClose, onUpdate }) => {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      setPopupMessage(
-        "File harus berupa gambar dengan format JPEG, PNG, GIF, BMP, atau TIFF."
-      );
+      setPopupMessage("File harus berupa gambar.");
       setPopupType("error");
       setPopupVisible(true);
       setLoading(false);
@@ -38,7 +36,7 @@ const CreatePromo = ({ onClose, onUpdate }) => {
       setImagePromoUrl(res.data.url);
       setPopupMessage(null);
     } catch (error) {
-      setPopupMessage("Gagal mengunggah gambar. Coba gambar lain.");
+      setPopupMessage("Gagal mengunggah gambar.");
       setPopupType("error");
       console.error(error);
     } finally {
@@ -48,7 +46,6 @@ const CreatePromo = ({ onClose, onUpdate }) => {
 
   const handleCreatePromo = async (e) => {
     e.preventDefault();
-
     const promoData = {
       title: e.target.title.value,
       description: e.target.description.value,
@@ -61,20 +58,17 @@ const CreatePromo = ({ onClose, onUpdate }) => {
 
     try {
       const res = await create("create-promo", promoData);
-      console.log("API Response", res);
-
       if (res.status === 200) {
         setPopupMessage("Promo berhasil dibuat.");
         setPopupType("success");
         setPopupVisible(true);
         onUpdate();
-
         setTimeout(() => {
           setPopupVisible(false);
           onClose();
         }, 2000);
       } else {
-        setPopupMessage("Gagal membuat promo. Status: " + res.status);
+        setPopupMessage("Gagal membuat promo.");
         setPopupType("error");
         setPopupVisible(true);
       }
@@ -86,13 +80,11 @@ const CreatePromo = ({ onClose, onUpdate }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center pt-32 pb-10 bg-black bg-opacity-50">
-      <div className="w-2/3 h-auto p-6 bg-white rounded-lg z-60">
-        <h2 className="mb-6 text-2xl font-bold text-center text-green-700 ">
-          Create Promo
-        </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-black bg-opacity-50 ">
+      <div className="relative mt-28 mb-4 w-full max-w-2xl p-6 mx-4 md:mx-0 bg-white rounded-lg max-h-[90vh] overflow-y-auto">
+        <h2 className="mb-6 text-2xl font-bold text-center text-green-700">Create Promo</h2>
         <form onSubmit={handleCreatePromo} className="w-full">
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col w-full md:w-1/2">
               <Index
                 deskripsi="Title"
@@ -123,14 +115,13 @@ const CreatePromo = ({ onClose, onUpdate }) => {
                 required
               />
               <Index
-              deskripsi="Terms & Conditions"
-              name="terms_condition"
-              placeholder="Enter terms & conditions"
-              required
-
+                deskripsi="Terms & Conditions"
+                name="terms_condition"
+                placeholder="Enter terms & conditions"
+                required
               />
             </div>
-            <div className="flex flex-col w-full gap-3 md:w-1/2">
+            <div className="flex flex-col w-full gap-4 md:w-1/2">
               <div className="flex flex-col gap-2">
                 <label htmlFor="description" className="font-semibold text-green-600">
                   Description
@@ -142,7 +133,6 @@ const CreatePromo = ({ onClose, onUpdate }) => {
                   className="w-full px-3 py-2 border border-green-500 rounded-lg"
                 />
               </div>
-            
               <div className="flex flex-col gap-2">
                 <Index
                   deskripsi="Upload Image"
@@ -161,22 +151,20 @@ const CreatePromo = ({ onClose, onUpdate }) => {
                 )}
                 <p className="text-center">{loading ? "Loading..." : ""}</p>
                 <div className="flex justify-center mt-4 space-x-4">
-                  
-            <Button
-              type="submit"
-              text="Create"
-              disabled={loading}
-            />
-            <Button
-              onClick={onClose}
-              text="Close"
-              className="text-green-500 bg-red-500 hover:bg-red-600"
-            />
-          </div>
+                  <Button
+                    type="submit"
+                    text="Create"
+                    disabled={loading}
+                  />
+                  <Button
+                    onClick={onClose}
+                    text="Close"
+                    className="text-green-500 bg-red-500 hover:bg-red-600"
+                  />
+                </div>
               </div>
             </div>
           </div>
-          
         </form>
         {popupVisible && (
           <PopupDashboard

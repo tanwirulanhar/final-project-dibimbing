@@ -6,7 +6,7 @@ import update from "../../../assets/icon/Edit.png";
 import hapus from "../../../assets/icon/sampah.png";
 import CreatePromo from "../../Element/Modals/ModalsPromo/ModalCreatePromo/CreatePromo";
 import UpdatePromo from "../../Element/Modals/ModalsPromo/ModalUpdatePromo/UpdatePromo";
-import useDelete from "../../../hooks/useDelete"; 
+import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
 
 const DashboardPromo = () => {
@@ -17,9 +17,9 @@ const DashboardPromo = () => {
   const [selectedPromo, setSelectedPromo] = useState(null);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [promoToDelete, setPromoToDelete] = useState(null);
-  const usersPerPage = 6;
+  const promosPerPage = 6;
 
-  const { deleteData } = useDelete(); 
+  const { deleteData } = useDelete();
 
   const fetchDataPromo = async () => {
     try {
@@ -41,11 +41,11 @@ const DashboardPromo = () => {
     fetchDataPromo();
   }, []);
 
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+  const indexOfLastPromo = currentPage * promosPerPage;
+  const indexOfFirstPromo = indexOfLastPromo - promosPerPage;
+  const currentPromos = data.slice(indexOfFirstPromo, indexOfLastPromo);
 
-  const totalPages = Math.ceil(data.length / usersPerPage);
+  const totalPages = Math.ceil(data.length / promosPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -105,45 +105,70 @@ const DashboardPromo = () => {
   };
 
   return (
-    <div className="sticky z-10 flex flex-col justify-between h-full p-6 mt-2 mb-20 shadow-2xl bg-slate-100 rounded-2xl">
+    <div className="sticky z-10 flex flex-col justify-between h-screen p-4 mt-2 shadow-2xl bg-slate-100 rounded-2xl">
       <Button
         onClick={() => setShowCreatePromo(true)}
         text="Create Promo"
         className="self-end mb-4"
       />
-      
-      <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-        {currentUsers.map((data) => (
-          <div
-            key={data.id}
-            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
-          >
-            <img
-              className="object-cover w-full h-40 mb-4 rounded-lg"
-              src={data.imageUrl}
-              alt="profile"
-            />
-            <h2 className="text-sm font-bold text-green-500">{data.title}</h2>
-            <p className="text-sm text-gray-600">
-              Create : {format(new Date(data.createdAt), "dd-MM-yyyy HH:mm:ss")}
-            </p>
-            <p className="text-sm text-gray-600">
-              Last Update :{" "}
-              {format(new Date(data.updatedAt), "dd-MM-yyyy HH:mm:ss")}
-            </p>
-            <div className="absolute flex space-x-2 bottom-2 right-2">
-              <img src={update} alt="edit" className="w-5 h-5 cursor-pointer" onClick={() => handleUpdatePromoOpen(data)} />
-              <img src={hapus} alt="delete" className="w-5 h-5 cursor-pointer" onClick={() => handleDeletePromo(data)} />
+
+      <div className="flex-grow p-8 pt-10 overflow-y-auto scrollbar-hide">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+          {currentPromos.map((data) => (
+            <div
+              key={data.id}
+              className="relative flex flex-col w-full p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            >
+              <img
+                className="object-cover w-full h-40 mb-4 rounded-lg"
+                src={data.imageUrl}
+                alt="profile"
+              />
+              <h2 className="text-sm font-bold text-green-500">{data.title}</h2>
+              <p className="text-sm text-gray-600">
+                Create:{" "}
+                <span className="block lg:inline">
+                  {format(new Date(data.createdAt), "dd-MM-yyyy")}
+                </span>
+                <span className="hidden lg:inline">
+                  {" "}
+                  {format(new Date(data.createdAt), "HH:mm:ss")}
+                </span>
+              </p>
+              <p className="text-sm text-gray-600">
+                Last Update:{" "}
+                <span className="block lg:inline">
+                  {format(new Date(data.updatedAt), "dd-MM-yyyy")}
+                </span>
+                <span className="hidden lg:inline">
+                  {" "}
+                  {format(new Date(data.updatedAt), "HH:mm:ss")}
+                </span>
+              </p>
+              <div className="absolute flex space-x-2 bottom-2 right-2">
+                <img
+                  src={update}
+                  alt="edit"
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => handleUpdatePromoOpen(data)}
+                />
+                <img
+                  src={hapus}
+                  alt="delete"
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => handleDeletePromo(data)}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="flex justify-center mt-4 mb-2 space-x-2">
+      <div className="flex justify-center mt-4 space-x-2">
         <Button
           onClick={handlePrevPage}
-          text="Back"
           disabled={currentPage === 1}
+          text="Back"
         ></Button>
         <Button
           onClick={handleNextPage}
@@ -153,11 +178,18 @@ const DashboardPromo = () => {
       </div>
 
       {showCreatePromo && (
-        <CreatePromo onClose={handleCreatePromoClose} onUpdate={fetchDataPromo} />
+        <CreatePromo
+          onClose={handleCreatePromoClose}
+          onUpdate={fetchDataPromo}
+        />
       )}
-      
+
       {showUpdatePromo && selectedPromo && (
-        <UpdatePromo onClose={handleUpdatePromoClose} onUpdate={fetchDataPromo} promoData={selectedPromo} />
+        <UpdatePromo
+          onClose={handleUpdatePromoClose}
+          onUpdate={fetchDataPromo}
+          promoData={selectedPromo}
+        />
       )}
 
       {showConfirmDelete && promoToDelete && (

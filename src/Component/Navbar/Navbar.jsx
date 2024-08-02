@@ -1,3 +1,4 @@
+// Navbar.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -31,7 +32,6 @@ const Navbar = () => {
           }
         );
         setUserData(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -104,7 +104,7 @@ const Navbar = () => {
           {userData ? <Navlist userRole={userData.role} /> : <Navlist />}
         </div>
 
-        <div className="justify-end md:hidden justify">
+        <div className="justify-end md:hidden">
           <button
             className="text-green-600 focus:outline-none"
             onClick={toggleMenu}
@@ -134,7 +134,7 @@ const Navbar = () => {
                 <img
                   src={tandaBawah}
                   alt="dropdown"
-                  className="w-4 h-4 pt-1 hover:cursor-pointer"
+                  className="w-4 h-4 pt-1 cursor-pointer"
                   onClick={toggleDropdown}
                 />
               </div>

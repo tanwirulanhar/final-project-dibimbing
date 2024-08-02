@@ -13,20 +13,20 @@ const RegisterPage = () => {
 
   return (
     <div className="relative min-h-screen bg-white">
-      <div className="absolute top-0 left-0 z-40 mt-8 ml-16 cursor-pointer">
+      <div className="absolute top-0 left-0 z-40 mt-8 ml-8 cursor-pointer md:ml-16">
         <img
           src={logo}
           alt="logo"
-          className="object-cover h-16 w-28 md:w-32"
+          className="object-cover w-24 h-12 md:h-16 md:w-32 "
           onClick={handleLogo}
         />
       </div>
 
       <div className="relative flex flex-col min-h-screen md:flex-row">
-        <div className="hidden w-1/2 md:block">
+        <div className="hidden w-full md:block md:w-1/2">
           <HeroSection height="h-362" width="w-full" />
         </div>
-        <div className="z-50 w-full md:w-1/2">
+        <div className="z-50 flex items-center justify-center w-full p-4 md:w-1/2 md:p-8">
           <Register />
         </div>
       </div>
