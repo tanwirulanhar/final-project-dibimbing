@@ -78,7 +78,7 @@ const CreateCategory = ({ onClose, onUpdate }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center pt-32 pb-10 bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-6 pt-32 pb-10 bg-black bg-opacity-50 lg:px-10">
       <div className="w-auto h-auto p-10 mt-10 mb-10 bg-white rounded-lg z-60">
         <h2 className="mb-6 text-2xl font-bold text-center text-green-700">
           Create Category

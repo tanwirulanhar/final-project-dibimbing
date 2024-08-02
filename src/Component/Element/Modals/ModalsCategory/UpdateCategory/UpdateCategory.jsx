@@ -86,7 +86,7 @@ const UpdateCategory = ({ onClose, onUpdate, categoryData }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-6 bg-black bg-opacity-50 lg:px-10">
       <div className="w-full max-w-lg p-10 mt-20 bg-white rounded-lg shadow-lg">
         <h2 className="mb-6 text-2xl font-bold text-center text-green-700">
           Update Category

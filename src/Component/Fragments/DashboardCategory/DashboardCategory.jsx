@@ -106,81 +106,86 @@ const DashboardCategory = () => {
   };
 
   return (
-    <div className="sticky z-10 flex flex-col justify-between h-auto p-6 mt-2 mb-20 shadow-2xl bg-slate-100 rounded-2xl">
+    <div className="sticky z-10 flex flex-col justify-between h-screen p-4 mt-2 shadow-2xl bg-slate-100 rounded-2xl">
       <Button
         onClick={() => setShowCreateCategory(true)}
         text="Create Category"
         className="self-end mb-4"
       />
 
-      <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-        {currentItems.map((data) => (
-          <div
-            key={data.id}
-            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
-          >
-            <img
-              className="object-cover w-full h-40 mb-4 rounded-lg"
-              src={data.imageUrl}
-              alt="category"
-            />
-            <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
-            <p className="text-sm text-gray-600">
-              Created: {format(new Date(data.createdAt), "dd-MM-yyyy")}
-            </p>
-            <p className="text-sm text-gray-600">
-              Last Updated: {format(new Date(data.updatedAt), "dd-MM-yyyy")}
-            </p>
-            <div className="absolute flex space-x-2 bottom-2 right-2">
+      <div  className="flex-grow p-8 pt-10 overflow-y-auto scrollbar-hide">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {currentItems.map((data) => (
+            <div
+              key={data.id}
+              className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            >
               <img
-                src={update}
-                alt="edit"
-                className="w-5 h-5 cursor-pointer"
-                onClick={() => handleEditCategory(data)}
+                className="object-cover w-full h-40 mb-4 rounded-lg"
+                src={data.imageUrl}
+                alt="category"
               />
-              <img
-                src={hapus}
-                alt="delete"
-                className="w-5 h-5 cursor-pointer"
-                onClick={() => handleDeleteCategory(data)}
-              />
+              <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
+              <p className="text-sm text-gray-600">
+                Created: {format(new Date(data.createdAt), "dd-MM-yyyy")}
+              </p>
+              <p className="text-sm text-gray-600">
+                Last Updated: {format(new Date(data.updatedAt), "dd-MM-yyyy")}
+              </p>
+              <div className="absolute flex space-x-2 bottom-2 right-2">
+                <img
+                  src={update}
+                  alt="edit"
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => handleEditCategory(data)}
+                />
+                <img
+                  src={hapus}
+                  alt="delete"
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => handleDeleteCategory(data)}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-4 mb-2 space-x-2">
+          <Button
+            onClick={handlePrevPage}
+            text="Back"
+            disabled={currentPage === 1}
+          />
+          <Button
+            onClick={handleNextPage}
+            text="Next"
+            disabled={currentPage === totalPages}
+          />
+        </div>
+
+        {showCreateCategory && (
+          <CreateCategory
+            onClose={handleCreateCategoryClose}
+            onUpdate={fetchDataCategory}
+          />
+        )}
+
+        {showUpdateCategory && selectedCategory && (
+          <UpdateCategory
+            onClose={handleUpdateCategoryClose}
+            onUpdate={fetchDataCategory}
+            categoryData={selectedCategory}
+          />
+        )}
+
+        {showConfirmDelete && (
+          <ConfirmDelete
+            onConfirm={confirmDelete}
+            onCancel={cancelDelete}
+            message={`Are you sure you want to delete this category?`}
+          />
+        )}
       </div>
-
-      <div className="flex justify-center mt-4 mb-2 space-x-2">
-        <Button
-          onClick={handlePrevPage}
-          text="Back"
-          disabled={currentPage === 1}
-        />
-        <Button
-          onClick={handleNextPage}
-          text="Next"
-          disabled={currentPage === totalPages}
-        />
-      </div>
-
-      {showCreateCategory && (
-        <CreateCategory onClose={handleCreateCategoryClose} onUpdate={fetchDataCategory} />
-      )}
-
-      {showUpdateCategory && selectedCategory && (
-        <UpdateCategory
-          onClose={handleUpdateCategoryClose}
-          onUpdate={fetchDataCategory}
-          categoryData={selectedCategory}
-        />
-      )}
-
-      {showConfirmDelete && (
-        <ConfirmDelete
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-          message={`Are you sure you want to delete this category?`}
-        />
-      )}
     </div>
   );
 };
