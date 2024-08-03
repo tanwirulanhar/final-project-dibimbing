@@ -105,7 +105,7 @@ const DashboardPromo = () => {
   };
 
   return (
-    <div className="sticky z-10 flex flex-col justify-between h-screen p-4 mt-2 shadow-2xl bg-slate-100 rounded-2xl">
+    <div className="sticky z-10 flex flex-col justify-between h-screen p-4 px-8 pt-6 mt-4 shadow-2xl bg-slate-100 rounded-2xl">
       <Button
         onClick={() => setShowCreatePromo(true)}
         text="Create Promo"

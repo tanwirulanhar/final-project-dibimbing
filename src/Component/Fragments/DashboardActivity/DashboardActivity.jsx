@@ -138,7 +138,7 @@ const DashboardActivity = () => {
   };
 
   return (
-    <div className="relative z-10 flex flex-col justify-between w-full h-auto p-6 shadow-2xl bg-slate-100 rounded-2xl">
+    <div className="relative z-10 flex flex-col justify-between w-full h-auto p-4 px-8 pt-6 mt-4 shadow-2xl bg-slate-100 rounded-2xl">
       <div className="flex justify-between">
         <Search onSearch={handleSearchResults} onReset={handleResetSearch} />
         <Button
