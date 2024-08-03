@@ -27,7 +27,7 @@ const Activity = () => {
       }
     };
     fetchActivity();
-  }, [getData]);
+  }, []);
 
   const settings2 = {
     dots: false,

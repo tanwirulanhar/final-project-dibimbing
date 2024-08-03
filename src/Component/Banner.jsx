@@ -18,7 +18,7 @@ const Banner = () => {
     };
 
     fetchData();
-  }, [getData])
+  }, [])
 
   return (
     <div css={mainContainer}>

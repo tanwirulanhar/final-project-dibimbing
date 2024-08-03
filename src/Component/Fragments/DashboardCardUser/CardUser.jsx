@@ -9,7 +9,7 @@ const CardUser = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const usersPerPage = 8; // 4 kartu per kolom, 3 baris per halaman
+  const usersPerPage = 8; 
 
   const fetchDataAllUser = async () => {
     try {
@@ -72,7 +72,7 @@ const CardUser = () => {
 
   return (
     <div className="sticky z-10 flex flex-col justify-between h-screen p-4 mt-2 shadow-2xl bg-slate-100 rounded-2xl">
-      <div className="flex-grow pt-10 overflow-y-auto scrollbar-hide">
+      <div className="flex-grow px-2 pt-10 overflow-y-auto scrollbar-hide">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {currentUsers.map((data) => (
             <div

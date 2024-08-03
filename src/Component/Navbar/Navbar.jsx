@@ -1,4 +1,3 @@
-// Navbar.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,7 +9,7 @@ import DropdownMenu from "../Element/DropdownMenu/DropdownMenu";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")) || null);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -32,13 +31,16 @@ const Navbar = () => {
           }
         );
         setUserData(response.data.data);
+        localStorage.setItem("userData", JSON.stringify(response.data.data));
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
-    fetchUserData();
-  }, []);
+    if (!userData) {
+      fetchUserData();
+    }
+  }, [userData]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,7 +103,7 @@ const Navbar = () => {
         />
 
         <div className="items-center hidden space-x-6 md:flex">
-          {userData ? <Navlist userRole={userData.role} /> : <Navlist />}
+          <Navlist userRole={userData?.role} />
         </div>
 
         <div className="justify-end md:hidden">

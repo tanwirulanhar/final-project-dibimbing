@@ -63,7 +63,7 @@ const CarouselCategory = () => {
     };
 
     fetchCategory();
-  }, [getData]);
+  }, []);
 
   const settings = {
     className: "center",

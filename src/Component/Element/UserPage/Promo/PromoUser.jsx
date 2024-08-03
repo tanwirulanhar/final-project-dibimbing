@@ -28,7 +28,7 @@ const PromoUser = () => {
 
     setNav1(sliderRef1);
     setNav2(sliderRef2);
-  }, [getData]);
+  }, []);
 
   useEffect(() => {
     AOS.init({ duration: 1000 });

@@ -19,7 +19,7 @@ const CarouselPromo = () => {
     };
 
     fetchPromos();
-  }, [getData]);
+  }, []);
 
   const settings = {
     dots: true,

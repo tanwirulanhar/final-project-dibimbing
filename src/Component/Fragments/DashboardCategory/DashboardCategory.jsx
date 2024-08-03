@@ -113,7 +113,7 @@ const DashboardCategory = () => {
         className="self-end mb-4"
       />
 
-      <div  className="flex-grow p-8 pt-10 overflow-y-auto scrollbar-hide">
+      <div  className="flex-grow px-2 pt-10 overflow-y-auto scrollbar-hide">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {currentItems.map((data) => (
             <div
