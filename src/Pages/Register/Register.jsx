@@ -125,15 +125,15 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen mt-10 bg-white">
+    <div className="flex items-center justify-center w-full h-full p-4 ">
       <form
         onSubmit={handleSubmit}
-        className="w-full p-6 mb-20 mr-10 bg-white shadow-2xl rounded-xl"
+        className="w-full max-w-md p-6 bg-white shadow-lg rounded-xl"
       >
-        <h1 className="mb-10 text-2xl font-bold text-center text-green-800">
+        <h1 className="mb-8 text-2xl font-bold text-center text-green-800">
           Sign Up
         </h1>
-        <div className="grid grid-cols-1 gap-10 mb-2 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 mb-4 text-green-500 md:grid-cols-2">
           <div className="relative">
             <Index
               deskripsi="Email"
@@ -159,8 +159,8 @@ const Register = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-10 mb-2 md:grid-cols-2">
-          <div className="relative">
+        <div className="grid grid-cols-1 gap-6 mb-4 text-green-500 md:grid-cols-2">
+          <div className="relative grid items-center">
             <Index
               deskripsi="Input Password"
               className="w-full"
@@ -174,7 +174,7 @@ const Register = () => {
             <button
               type="button"
               onClick={toggleShowPassword}
-              className="absolute bg-transparent right-2 top-10"
+              className="absolute flex items-center transform -translate-y-1/2 right-2 top-1/2"
             >
               <img
                 src={showPassword ? eyeOff : eye}
@@ -183,7 +183,8 @@ const Register = () => {
               />
             </button>
           </div>
-          <div className="relative">
+
+          <div className="relative grid items-center">
             <Index
               deskripsi="Confirm Password"
               className="w-full"
@@ -197,7 +198,7 @@ const Register = () => {
             <button
               type="button"
               onClick={toggleShowPassword}
-              className="absolute bg-transparent right-2 top-10"
+              className="absolute transform -translate-y-1/2 right-3 top-1/2"
             >
               <img
                 src={showPassword ? eyeOff : eye}
@@ -205,13 +206,17 @@ const Register = () => {
                 className="w-5 h-5"
               />
             </button>
-            {passwordError && <p className="text-red-600">{passwordError}</p>}
+            {passwordError && (
+              <p className="mt-2 text-sm text-red-600">{passwordError}</p>
+            )}
           </div>
         </div>
 
-        <div className="flex gap-10 mb-4">
-          <div className="flex-1">
-            <label className="block mb-2 text-sm font-medium text-green-600">Role</label>
+        <div className="grid grid-cols-1 gap-6 mb-4 text-green-600 md:grid-cols-2">
+          <div>
+            <label className="block mb-2 text-sm font-medium text-green-600">
+              Role
+            </label>
             <select
               name="role"
               value={formData.role || ""}
@@ -226,10 +231,10 @@ const Register = () => {
               <option value="user">User</option>
             </select>
           </div>
-          <div className="flex-1">
+          <div>
             <Index
               deskripsi="Phone Number"
-              type="text"
+              type="number"
               value={formData.phoneNumber || ""}
               placeholder="Input Phone Number"
               name="phoneNumber"
@@ -242,7 +247,7 @@ const Register = () => {
         <label className="block mb-2 text-sm font-medium text-green-600">
           Profile Picture
         </label>
-        <div className="flex gap-4 mb-6">
+        <div className="flex flex-col gap-4 mb-6">
           <input
             type="file"
             name="profilePicture"
@@ -251,7 +256,7 @@ const Register = () => {
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-green-500"
           />
           {profilePictureUrl && (
-            <div>
+            <div className="flex justify-center">
               <img
                 src={profilePictureUrl}
                 alt="Profile Picture Preview"
@@ -259,13 +264,15 @@ const Register = () => {
               />
             </div>
           )}
-          {message && <div className="mt-2 text-red-600">{message}</div>}
+          {message && <div className="text-center text-red-600">{message}</div>}
         </div>
 
-        <div className="mb-3 text-center">
-          <Button text="Submit">{loading ? "Loading..." : "Register"}</Button>
+        <div className="mb-4 text-center">
+          <Button text="Submit" className="w-full">
+            {loading ? "Loading..." : "Register"}
+          </Button>
         </div>
-        <p className="mb-4 text-center">
+        <p className="text-center text-green-500">
           Have an account?{" "}
           <Link to="/login" className="text-green-600 hover:underline">
             Login
@@ -273,26 +280,33 @@ const Register = () => {
         </p>
       </form>
       {popup && (
-        <div className="fixed z-50 flex justify-center w-full transform -translate-x-1/2 top-4 left-1/2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <div className="relative p-4 bg-white rounded-lg shadow-lg">
             {response ? (
-              <div className="flex items-center gap-2">
-                <img src={iconSukses} alt="sukses" className="w-6 h-6" />
-                <h2 className="text-green-600">Registration Successful</h2>
-              </div>
+              <>
+                <img
+                  src={iconSukses}
+                  alt="Success"
+                  className="w-12 h-12 mx-auto mb-4"
+                />
+                <p className="text-center text-green-700">{response.message}</p>
+              </>
             ) : (
-              <div className="flex items-center gap-2">
-                <img src={iconGagal} alt="gagal" className="w-6 h-6" />
-                <h2 className="text-red-600">Registration Failed</h2>
-                <p>{error}</p>
-                <button
-                  onClick={closePopup}
-                  className="absolute mt-1 text-gray-600 -top-4 -right-3 hover:text-gray-800 focus:outline-none"
-                >
-                  <img src={icon} alt="close" className="w-6 h-6" />
-                </button>
-              </div>
+              <>
+                <img
+                  src={iconGagal}
+                  alt="Error"
+                  className="w-12 h-12 mx-auto mb-4"
+                />
+                <p className="text-center text-red-700">{error}</p>
+              </>
             )}
+            <button
+              onClick={closePopup}
+              className="absolute p-1 text-gray-500 top-2 right-2"
+            >
+              <img src={icon} alt="Close" className="w-6 h-6" />
+            </button>
           </div>
         </div>
       )}

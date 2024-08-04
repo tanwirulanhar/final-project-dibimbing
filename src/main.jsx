@@ -1,6 +1,9 @@
+// main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import store from "./redux/Store/store.js";
 import "./index.css";
 import HomePage from "./Pages/HomePage/HomePageUser/HomePage.jsx";
 import LoginPage from "./Pages/Login/LoginPage.jsx";
@@ -94,6 +97,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

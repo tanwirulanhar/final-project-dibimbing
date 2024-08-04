@@ -5,11 +5,15 @@ const DropdownMenu = ({ onClose }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    // Hapus data pengguna dari localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
+    
+    // Navigasi ke halaman login
     navigate("/login");
+    
+    // Tutup dropdown menu
     onClose();
-    window.location.reload(); 
   };
 
   const handleEditProfile = () => {

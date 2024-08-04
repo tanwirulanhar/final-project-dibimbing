@@ -4,10 +4,13 @@ import DashboardBackground from "../../../Component/DashboardBackground/Dashboar
 import Footer from "../../../Component/Footer/Footer";
 import Sidebar from "../../../Component/Fragments/Sidebar/Sidebar";
 import Navbar from "../../../Component/Navbar/Navbar";
+import { useSelector } from "react-redux";
 
 const HomePageAdmin = () => {
   const [activeMenu, setActiveMenu] = useState("");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  const darkMode = useSelector((state) => state.darkMode);
 
   const handleSidebarClick = (menu) => {
     setActiveMenu(menu);
@@ -18,10 +21,14 @@ const HomePageAdmin = () => {
   };
 
   return (
-    <div className="relative overflow-hidden">
-      <Navbar />
-      <div className="h-auto mb-36">
-        <div className="flex w-full bg-white h-360">
+    <div
+      className={`overflow-x-hidden ${
+        darkMode ? "bg-gray-900 text-green-800 " : "bg-white "
+      }`}
+    >
+      <div className="relative overflow-hidden">
+        <Navbar />
+        <div className="flex w-full h-auto mb-36">
           <Sidebar
             onMenuClick={handleSidebarClick}
             activeMenu={activeMenu}
@@ -35,9 +42,8 @@ const HomePageAdmin = () => {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
-
-      <Footer />
     </div>
   );
 };

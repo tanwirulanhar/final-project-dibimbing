@@ -68,11 +68,11 @@ const Search = ({ onSearch, onReset }) => {
   };
 
   return (
-    <div className="w-1/2 pl-10">
+    <div className="flex flex-col items-center gap-4 p-4 md:flex-row md:items-start">
       <select
         value={selectedCategoryId}
         onChange={(e) => setSelectedCategoryId(e.target.value)}
-        className="w-1/2 p-2 mb-4 mr-4 border border-green-800 rounded-xl"
+        className="w-full p-2 mb-4 border border-green-800 md:w-1/2 rounded-xl md:mb-0"
       >
         <option value="">Select</option>
         {categories.map((category) => (
@@ -81,10 +81,12 @@ const Search = ({ onSearch, onReset }) => {
           </option>
         ))}
       </select>
-      <Button text="Search" onClick={handleSearch} className="mr-2" />
-      <Button text="Reset" onClick={handleReset} />
+      <div className="flex flex-col w-full gap-2 md:flex-row md:w-auto">
+        <Button text="Search" onClick={handleSearch} className="w-full md:w-auto" />
+        <Button text="Reset" onClick={handleReset} className="w-full md:w-auto" />
+      </div>
 
-      {error && <p className="mt-4 text-red-500">{error}</p>}
+      {error && <p className="text-center text-red-500  md:text-left">{error}</p>}
     </div>
   );
 };

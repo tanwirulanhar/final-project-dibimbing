@@ -8,7 +8,7 @@ import UpdateActivity from "../../Element/Modals/ModalsActivity/ModalsUpdateActi
 import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
 import PopupDashboard from "../../Element/Popup/PopUpDashboard";
-import useGetData from "../../../hooks/useGatedata"; // pastikan ini benar
+import useGetData from "../../../hooks/useGatedata";
 import Search from "../../Element/Search/Search";
 
 const DashboardActivity = () => {
@@ -138,21 +138,21 @@ const DashboardActivity = () => {
   };
 
   return (
-    <div className="relative z-10 flex flex-col justify-between w-full h-auto p-4 px-8 pt-6 mt-4 shadow-2xl bg-slate-100 rounded-2xl">
-      <div className="flex justify-between">
+    <div className="relative z-10 flex flex-col justify-between w-full h-auto p-4 px-4 pt-6 mt-4 shadow-2xl md:px-8 bg-slate-100 rounded-2xl">
+      <div className="flex flex-col md:flex-row md:justify-between">
         <Search onSearch={handleSearchResults} onReset={handleResetSearch} />
         <Button
           onClick={handleCreateActivityOpen}
           text="Create Activity"
-          className="self-end mb-4"
+          className="self-start mt-4 mb-4 md:self-end md:mt-0"
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {currentActivities.map((activity) => (
           <div
             key={activity.id}
-            className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
+            className="relative flex flex-col p-4 transition-transform duration-300 ease-in-out transform bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
           >
             <img
               className="object-cover w-full h-40 mb-4 rounded-lg"
@@ -201,7 +201,7 @@ const DashboardActivity = () => {
 
       {showCreateActivity && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-lg md:w-4/5">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
             <h2 className="mb-4 text-2xl font-bold text-center text-green-600">
               Create Activity
             </h2>
@@ -214,12 +214,14 @@ const DashboardActivity = () => {
       )}
 
       {showUpdateActivity && selectedActivity && (
-        <div>
-          <UpdateActivity
-            onClose={handleUpdateActivityClose}
-            onUpdate={fetchDataActivity}
-            activityData={selectedActivity}
-          />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <UpdateActivity
+              onClose={handleUpdateActivityClose}
+              onUpdate={fetchDataActivity}
+              activityData={selectedActivity}
+            />
+          </div>
         </div>
       )}
 

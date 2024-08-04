@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Banner from "../../../Component/Banner";
 import Footer from "../../../Component/Footer/Footer";
 import CarauselPromo from "../../../Component/Fragments/Caraousel/CaraouselPromo/CarauselPromo";
@@ -14,8 +15,10 @@ const HomePage = () => {
     AOS.init({ duration: 1000 });
   }, []);
 
+  const darkMode = useSelector((state) => state.darkMode);
+
   return (
-    <div className="overflow-x-hidden">
+    <div className={`overflow-x-hidden ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
       <Navbar />
       <div className="flex flex-col-reverse lg:flex-row lg:gap-16 lg:items-start" data-aos="fade-up">
         <HomePageContent />
