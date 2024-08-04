@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import Navbar from "../../../Navbar/Navbar";
-import gambarBanner from "../../../../assets/Travel-banner.png";
+import gambarBanner from "../../../../assets/Travel-banner2.png";
 import useGetData from "../../../../hooks/useGatedata";
 import Footer from "../../../Footer/Footer";
 import AOS from "aos";
