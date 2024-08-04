@@ -75,6 +75,7 @@ const Activity = () => {
               src={gambarBanner}
               alt="Banner"
               className="object-cover w-full h-auto"
+              loading="lazy"
             />
           </div>
 

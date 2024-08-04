@@ -74,13 +74,22 @@ const PromoUser = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="relative flex flex-col p-4 bg-black bg-opacity-5 lg:flex-row lg:px-10" data-aos="fade-up">
+      <div
+        className="relative flex flex-col p-4 bg-black bg-opacity-5 lg:flex-row lg:px-10"
+        data-aos="fade-up"
+      >
         <div className="relative p-6 mb-8 bg-gray-100 rounded-lg lg:w-1/3 lg:mb-0">
           <h1 className="text-2xl font-bold text-center text-green-900 md:text-3xl">
             Discover Unbeatable Travel Deals with Backpacker!
           </h1>
           <p className="text-lg text-center text-green-600 md:text-xl">
-            It’s time to explore the world with Backpacker’s exclusive promotions. From stunning beaches to vibrant cityscapes, we offer incredible savings on top destinations. Whether you're seeking a tropical getaway, an adventurous journey, or a peaceful retreat, Backpacker has the perfect deals for you. Don’t miss out on these limited-time offers—start your adventure with Backpacker today and create memories that will last a lifetime!
+            It’s time to explore the world with Backpacker’s exclusive
+            promotions. From stunning beaches to vibrant cityscapes, we offer
+            incredible savings on top destinations. Whether you're seeking a
+            tropical getaway, an adventurous journey, or a peaceful retreat,
+            Backpacker has the perfect deals for you. Don’t miss out on these
+            limited-time offers—start your adventure with Backpacker today and
+            create memories that will last a lifetime!
           </p>
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-gray-100 opacity-80"></div>
         </div>
@@ -90,6 +99,7 @@ const PromoUser = () => {
             src={gambarBanner}
             alt="img"
             className="object-cover w-full h-full rounded-lg"
+            loading="lazy"
           />
           <div className="absolute inset-0 opacity-50 bg-gradient-to-r from-black via-transparent to-transparent"></div>
         </div>
@@ -177,10 +187,7 @@ const PromoUser = () => {
           >
             {Array.isArray(promo) &&
               promo.map((data, index) => (
-                <div
-                  key={index}
-                  className="px-2 py-1 cursor-pointer"
-                >
+                <div key={index} className="px-2 py-1 cursor-pointer">
                   <img
                     src={data.imageUrl}
                     alt={data.title}
