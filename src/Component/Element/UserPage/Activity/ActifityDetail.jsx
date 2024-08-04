@@ -6,6 +6,7 @@ import Footer from "../../../Footer/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { format } from "date-fns";
+import { useSelector } from "react-redux";
 
 const ActivityDetailCard = () => {
   const { id } = useParams();
@@ -14,6 +15,8 @@ const ActivityDetailCard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [srcUrl, setSrcUrl] = useState(null);
+
+  const darkMode = useSelector((state) => state.darkMode);
 
   useEffect(() => {
     const fetchActivityDetails = async () => {
@@ -54,7 +57,9 @@ const ActivityDetailCard = () => {
   };
 
   return (
-    <div>
+    <div className={`overflow-x-hidden ${
+      darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+    }`}>
       <Navbar />
       <div className="p-8">
         <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-md" data-aos="fade-up">
