@@ -3,13 +3,16 @@ import axios from "axios";
 import Button from "../../Element/Button/Button";
 import update from "../../../assets/icon/Edit.png";
 import UpdateRole from "../../Element/Modals/ModalsUser/ModalsUpdateRole/UpdateRole";
+import defaultuser from "../../../assets/default-user.jpg";
+import Mail from "../../../assets/icon/Mail.png";
+import Phone from "../../../assets/icon/Phone.png";
 
 const CardUser = () => {
   const [dataAllUser, setDataAllUser] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const usersPerPage = 8; 
+  const usersPerPage = 8;
 
   const fetchDataAllUser = async () => {
     try {
@@ -34,9 +37,13 @@ const CardUser = () => {
     fetchDataAllUser();
   }, []);
 
+  const handleImageError = (e) => {
+    e.target.src = defaultuser;
+  };
+
   const handleRoleUpdate = (userId, newRole) => {
-    setDataAllUser(prevData =>
-      prevData.map(user =>
+    setDataAllUser((prevData) =>
+      prevData.map((user) =>
         user.id === userId ? { ...user, role: newRole } : user
       )
     );
@@ -81,16 +88,30 @@ const CardUser = () => {
             >
               <img
                 className="object-cover w-full h-40 mb-2 rounded-lg"
-                src={data.profilePictureUrl}
+                src={data.profilePictureUrl || defaultuser}
                 alt="profile"
+                onError={handleImageError}
               />
               <div className="flex justify-between">
                 <div>
-                  <h2 className="text-sm font-semibold">{data.name}</h2>
-                  <p className="text-sm text-gray-600">{data.email}</p>
-                  <p className="text-sm text-gray-600">{data.phoneNumber}</p>
+                  <h2 className="mb-3 text-sm font-bold">{data.name}</h2>
+                  <div className="flex gap-3 ">
+                    <img src={Mail} alt="img" className="w-4 h-4 mt-1" />
+                    <p className="text-sm text-gray-600">{data.email}</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <img src={Phone} alt="img" className="w-4 h-4 mt-1" />
+                    <p className="text-sm text-gray-600">{data.phoneNumber}</p>
+                  </div>
                 </div>
-                <p className="text-sm font-bold text-green-500">{data.role}</p>
+
+                <p
+                  className={`text-sm font-bold ${
+                    data.role === "admin" ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {data.role}
+                </p>
               </div>
               <div className="absolute flex space-x-2 bottom-2 right-2">
                 <img
@@ -119,7 +140,11 @@ const CardUser = () => {
       </div>
 
       {showModal && selectedUser && (
-        <UpdateRole user={selectedUser} onClose={handleCloseModal} onUpdate={handleRoleUpdate} />
+        <UpdateRole
+          user={selectedUser}
+          onClose={handleCloseModal}
+          onUpdate={handleRoleUpdate}
+        />
       )}
     </div>
   );

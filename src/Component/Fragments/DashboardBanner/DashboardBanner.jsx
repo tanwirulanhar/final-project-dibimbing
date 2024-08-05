@@ -8,6 +8,8 @@ import CreateBanner from "../../Element/Modals/ModalsBanner/ModalsCreateBanner/C
 import UpdateBanner from "../../Element/Modals/ModalsBanner/ModalsUpdateBanner/UpdateBanner";
 import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
+import red from "../../../assets/icon/red.png";
+import green from "../../../assets/icon/green.png";
 
 const DashboardBanner = () => {
   const [data, setData] = useState([]);
@@ -121,17 +123,33 @@ const DashboardBanner = () => {
               className="relative flex flex-col p-2 transition-transform duration-300 ease-in-out bg-white border rounded-lg shadow-lg hover:scale-105 hover:shadow-xl"
             >
               <img
-                className="object-cover w-full h-40 mb-4 rounded-lg"
+                className="object-cover w-full h-40 rounded-lg"
                 src={banner.imageUrl}
                 alt="banner"
               />
-              <div className="flex flex-col p-2 space-y-2 overflow-y-auto max-h-32">
-                <h2 className="text-sm font-bold text-green-500 truncate">{banner.name}</h2>
-                <p className="text-xs text-gray-600">
-                  Created: {format(new Date(banner.createdAt), "dd-MM-yyyy")}
+              <div className="flex flex-col p-2 overflow-y-auto max-h-32">
+                <h2 className="mb-3 text-base font-bold text-green-500 truncate">
+                  {banner.name}
+                </h2>
+                <p className="flex gap-2 text-sm font-medium text-gray-600">
+                  <img src={red} alt="img" className="w-4 h-4" />
+                  <span className="block lg:inline">
+                    {format(new Date(banner.createdAt), "dd-MM-yyyy")}
+                  </span>
+                  <span className="hidden lg:inline">
+                    {" "}
+                    {format(new Date(banner.createdAt), "HH:mm:ss")}
+                  </span>
                 </p>
-                <p className="text-xs text-gray-600">
-                  Last Updated: {format(new Date(banner.updatedAt), "dd-MM-yyyy")}
+                <p className="flex gap-2 text-sm font-medium text-gray-600">
+                  <img src={green} alt="img" className="w-4 h-4" />
+                  <span className="block lg:inline">
+                    {format(new Date(banner.updatedAt), "dd-MM-yyyy")}
+                  </span>
+                  <span className="hidden lg:inline">
+                    {" "}
+                    {format(new Date(banner.updatedAt), "HH:mm:ss")}
+                  </span>
                 </p>
               </div>
               <div className="absolute flex space-x-2 bottom-2 right-2">
@@ -169,7 +187,10 @@ const DashboardBanner = () => {
       </div>
 
       {showCreateBanner && (
-        <CreateBanner onClose={handleCreateBannerClose} onUpdate={fetchDataBanner} />
+        <CreateBanner
+          onClose={handleCreateBannerClose}
+          onUpdate={fetchDataBanner}
+        />
       )}
 
       {showUpdateBanner && selectedBanner && (

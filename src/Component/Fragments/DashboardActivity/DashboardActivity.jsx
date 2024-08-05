@@ -10,6 +10,8 @@ import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete
 import PopupDashboard from "../../Element/Popup/PopUpDashboard";
 import useGetData from "../../../hooks/useGatedata";
 import Search from "../../Element/Search/Search";
+import red from "../../../assets/icon/red.png";
+import green from "../../../assets/icon/green.png";
 
 const DashboardActivity = () => {
   const { getData } = useGetData();
@@ -159,15 +161,27 @@ const DashboardActivity = () => {
               src={activity.imageUrls[0] || "placeholder-image-url"}
               alt="activity"
             />
-            <h2 className="text-sm font-bold text-green-500">
-              {activity.title}
-            </h2>
-            <p className="text-sm text-gray-600">
-              Created: {format(new Date(activity.createdAt), "dd-MM-yyyy")}
-            </p>
-            <p className="text-sm text-gray-600">
-              Last Updated: {format(new Date(activity.updatedAt), "dd-MM-yyyy")}
-            </p>
+            <h2 className="mb-3 text-sm font-bold text-green-500">{activity.title}</h2>
+              <p className="flex gap-2 text-sm font-medium text-gray-600">
+                <img src={red} alt="img" className="w-4 h-4" />
+                <span className="block lg:inline">
+                  {format(new Date(activity.createdAt), "dd-MM-yyyy")}
+                </span>
+                <span className="hidden lg:inline">
+                  {" "}
+                  {format(new Date(activity.createdAt), "HH:mm:ss")}
+                </span>
+              </p>
+              <p className="flex gap-2 text-sm font-medium text-gray-600">
+                <img src={green} alt="img" className="w-4 h-4" />
+                <span className="block lg:inline">
+                  {format(new Date(activity.updatedAt), "dd-MM-yyyy")}
+                </span>
+                <span className="hidden lg:inline">
+                  {" "}
+                  {format(new Date(activity.updatedAt), "HH:mm:ss")}
+                </span>
+              </p>
             <div className="absolute flex space-x-2 bottom-2 right-2">
               <img
                 src={update}

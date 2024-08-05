@@ -135,36 +135,41 @@ const PromoUser = () => {
                       className="relative flex flex-col gap-4 p-6 mb-10 transition-transform duration-300 ease-in-out transform bg-gray-200 border rounded-lg shadow-lg lg:mb-4 hover:scale-105 hover:shadow-xl"
                       data-aos="fade-up"
                     >
-                      <img
-                        src={data.imageUrl}
-                        alt={data.title}
-                        className="object-cover w-full h-64 mb-4 rounded-lg"
-                      />
+                      <div className="relative w-full">
+                        <img
+                          src={data.imageUrl}
+                          alt={data.title}
+                          className="object-cover w-full h-64 rounded-lg"
+                        />
+                        <p className="absolute top-0 right-0 flex items-center justify-center w-1/2 h-full text-xl font-bold text-white bg-black bg-opacity-50">
+                          <div className="text-center">
+                            <h2 className="mb-5 text-xl font-bold text-white">
+                              {data.title}
+                            </h2>
+                            <p className="hidden px-6 text-sm font-semibold text-white lg:block">
+                              {data.description}
+                            </p>
+                            <p className="mt-4 text-sm font-bold text-white">
+                              Discount Price : &nbsp;&nbsp;
+                              <s className="text-red-500">
+                                {formatPrice(data.promo_discount_price)}
+                              </s>
+                            </p>
+                          </div>
+                        </p>
+                      </div>
+
                       <div className="text-left">
-                        <h2 className="text-xl font-bold text-green-500">
-                          {data.title}
-                        </h2>
-                        <p className="text-sm font-bold text-green-700">
-                          Description: &nbsp;&nbsp;
-                          <span className="text-sm font-semibold text-green-400">
-                            {data.description}
-                          </span>
-                        </p>
-                        <p className="text-sm font-bold text-green-700">
+                        <p className="flex text-base font-bold text-green-700">
                           Minimum Claim Price: &nbsp;&nbsp;
-                          <s className="text-red-500">
+                          <p className="text-green-800">
                             {formatPrice(data.promo_discount_price)}
-                          </s>
+                          </p>
                         </p>
-                        <p className="text-sm font-bold text-green-700">
-                          Promo Discount Price: &nbsp;&nbsp;
-                          <span className="text-green-500">
-                            {formatPrice(data.promo_discount_price)}
-                          </span>
-                        </p>
-                        <p className="text-sm font-bold text-green-700">
+
+                        <p className="text-base font-bold text-green-700">
                           Term Condition: &nbsp;&nbsp;
-                          <span className="font-semibold text-green-400">
+                          <span className="font-semibold text-green-600">
                             {data.terms_condition}
                           </span>
                         </p>

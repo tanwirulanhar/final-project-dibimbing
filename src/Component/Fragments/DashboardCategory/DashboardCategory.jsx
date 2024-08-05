@@ -8,6 +8,8 @@ import CreateCategory from "../../Element/Modals/ModalsCategory/CreateCategory/C
 import UpdateCategory from "../../Element/Modals/ModalsCategory/UpdateCategory/UpdateCategory";
 import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
+import red from "../../../assets/icon/red.png";
+import green from "../../../assets/icon/green.png";
 
 const DashboardCategory = () => {
   const [data, setData] = useState([]);
@@ -125,12 +127,26 @@ const DashboardCategory = () => {
                 src={data.imageUrl}
                 alt="category"
               />
-              <h2 className="text-sm font-bold text-green-500">{data.name}</h2>
-              <p className="text-sm text-gray-600">
-                Created: {format(new Date(data.createdAt), "dd-MM-yyyy")}
+              <h2 className="mb-3 text-sm font-bold text-green-500">{data.name}</h2>
+              <p className="flex gap-2 text-sm font-medium text-gray-600">
+                <img src={red} alt="img" className="w-4 h-4" />
+                <span className="block lg:inline">
+                  {format(new Date(data.createdAt), "dd-MM-yyyy")}
+                </span>
+                <span className="hidden lg:inline">
+                  {" "}
+                  {format(new Date(data.createdAt), "HH:mm:ss")}
+                </span>
               </p>
-              <p className="text-sm text-gray-600">
-                Last Updated: {format(new Date(data.updatedAt), "dd-MM-yyyy")}
+              <p className="flex gap-2 text-sm font-medium text-gray-600">
+                <img src={green} alt="img" className="w-4 h-4" />
+                <span className="block lg:inline">
+                  {format(new Date(data.updatedAt), "dd-MM-yyyy")}
+                </span>
+                <span className="hidden lg:inline">
+                  {" "}
+                  {format(new Date(data.updatedAt), "HH:mm:ss")}
+                </span>
               </p>
               <div className="absolute flex space-x-2 bottom-2 right-2">
                 <img

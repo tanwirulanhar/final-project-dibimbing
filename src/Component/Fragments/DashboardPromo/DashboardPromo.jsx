@@ -8,6 +8,8 @@ import CreatePromo from "../../Element/Modals/ModalsPromo/ModalCreatePromo/Creat
 import UpdatePromo from "../../Element/Modals/ModalsPromo/ModalUpdatePromo/UpdatePromo";
 import useDelete from "../../../hooks/useDelete";
 import ConfirmDelete from "../../Element/Modals/ModalConfirmDelete/ConfirmDelete";
+import red from "../../../assets/icon/red.png";
+import green from "../../../assets/icon/green.png";
 
 const DashboardPromo = () => {
   const [data, setData] = useState([]);
@@ -124,9 +126,9 @@ const DashboardPromo = () => {
                 src={data.imageUrl}
                 alt="profile"
               />
-              <h2 className="text-sm font-bold text-green-500">{data.title}</h2>
-              <p className="text-sm text-gray-600">
-                Create:{" "}
+              <h2 className="mb-3 text-sm font-bold text-green-500">{data.title}</h2>
+              <p className="flex gap-2 text-sm font-medium text-gray-600">
+                <img src={red} alt="img" className="w-4 h-4" />
                 <span className="block lg:inline">
                   {format(new Date(data.createdAt), "dd-MM-yyyy")}
                 </span>
@@ -135,8 +137,8 @@ const DashboardPromo = () => {
                   {format(new Date(data.createdAt), "HH:mm:ss")}
                 </span>
               </p>
-              <p className="text-sm text-gray-600">
-                Last Update:{" "}
+              <p className="flex gap-2 text-sm font-medium text-gray-600">
+                <img src={green} alt="img" className="w-4 h-4" />
                 <span className="block lg:inline">
                   {format(new Date(data.updatedAt), "dd-MM-yyyy")}
                 </span>
