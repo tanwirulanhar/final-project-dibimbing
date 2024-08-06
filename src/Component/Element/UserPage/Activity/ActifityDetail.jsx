@@ -7,6 +7,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
+import star from "../../../../assets/icon/Star.png";
 
 const ActivityDetailCard = () => {
   const { id } = useParams();
@@ -53,41 +54,101 @@ const ActivityDetailCard = () => {
   if (!activity) return <div>No data found</div>;
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price);
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(price);
   };
 
   return (
-    <div className={`overflow-x-hidden ${
-      darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
-    }`}>
+    <div
+      className={`overflow-x-hidden ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+      }`}
+    >
       <Navbar />
       <div className="p-8">
-        <div className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-md" data-aos="fade-up">
+        <div
+          className="max-w-4xl p-6 mx-auto bg-white rounded-lg shadow-md"
+          data-aos="fade-up"
+        >
           <img
             src={activity.imageUrls[0]}
             alt={activity.title}
             className="object-cover w-full mb-6 rounded-lg h-96"
             data-aos="fade-up"
           />
-          <h1 className="mb-4 text-3xl font-bold text-green-800" data-aos="fade-up">{activity.title}</h1>
-          <p className="mb-4 text-xl font-bold text-green-500" data-aos="fade-up">Update : <span className="text-xl font-light text-gray-600">{format(new Date(activity.updatedAt), "dd-MM-yyyy")}</span></p>
-          <p className="mb-4 text-xl font-bold text-green-500" data-aos="fade-up">
-            Price : <span className="text-xl font-light text-gray-600">{formatPrice(activity.price)} </span>
+          <h1
+            className="mb-4 text-3xl font-bold text-green-800"
+            data-aos="fade-up"
+          >
+            {activity.title}
+          </h1>
+          <p
+            className="mb-4 text-xl font-bold text-green-500"
+            data-aos="fade-up"
+          >
+            Update :{" "}
+            <span className="text-xl font-light text-gray-600">
+              {format(new Date(activity.updatedAt), "dd-MM-yyyy")}
+            </span>
           </p>
-          <p className="mb-4 text-xl font-bold text-green-500" data-aos="fade-up">
-            Discount Price : <span className="text-xl font-light text-gray-600">{formatPrice(activity.price_discount)} </span>
+          <p
+            className="mb-4 text-xl font-bold text-green-500"
+            data-aos="fade-up"
+          >
+            Price :{" "}
+            <span className="text-xl font-light text-gray-600">
+              {formatPrice(activity.price)}{" "}
+            </span>
           </p>
-          <p className="mb-4 text-xl font-bold text-green-500" data-aos="fade-up">
-            Rating : <span className="text-xl font-light text-gray-600">{activity.rating}</span>
+          <p
+            className="mb-4 text-xl font-bold text-green-500"
+            data-aos="fade-up"
+          >
+            Discount Price :{" "}
+            <span className="text-xl font-light text-gray-600">
+              {formatPrice(activity.price_discount)}{" "}
+            </span>
           </p>
-          <p className="mb-4 text-xl font-bold text-green-500" data-aos="fade-up">
-            Total Reviews : <span className="text-xl font-light text-gray-600">{activity.total_reviews}</span>
+        
+          <p
+            className="flex gap-2 mb-4 text-xl font-bold text-green-500"
+            data-aos="fade-up "
+          >
+            
+            Rating :{" "}
+            <span className="text-xl font-light text-gray-600">
+              {activity.rating}
+            </span>
+            <img src={star} alt="img"  className="w-5 h-5 mt-1"/>
           </p>
-          <p className="mb-4 text-xl font-bold text-green-500" data-aos="fade-up">
-            Facilities : <span className="text-xl font-light text-gray-600">{activity.facilities}</span>
+          <p
+            className="mb-4 text-xl font-bold text-green-500"
+            data-aos="fade-up"
+          >
+            Total Reviews :{" "}
+            <span className="text-xl font-light text-gray-600">
+              {activity.total_reviews}
+            </span>
           </p>
-          <p className="mb-4 text-xl font-bold text-green-500" data-aos="fade-up">
-            Address : <span className="text-xl font-light text-gray-600">{activity.address}</span>
+          <p
+            className="mb-4 text-xl font-bold text-green-500"
+            data-aos="fade-up"
+          >
+            Facilities :{" "}
+            <span className="text-xl font-light text-gray-600">
+              {activity.facilities}
+            </span>
+          </p>
+          <p
+            className="mb-4 text-xl font-bold text-green-500"
+            data-aos="fade-up"
+          >
+            Address :{" "}
+            <span className="text-xl font-light text-gray-600">
+              {activity.address}
+            </span>
           </p>
           {srcUrl ? (
             <div className="w-full h-96" data-aos="fade-up">
@@ -101,7 +162,9 @@ const ActivityDetailCard = () => {
               ></iframe>
             </div>
           ) : (
-            <p className="text-lg text-gray-800" data-aos="fade-up">Map not available</p>
+            <p className="text-lg text-gray-800" data-aos="fade-up">
+              Map not available
+            </p>
           )}
         </div>
       </div>
