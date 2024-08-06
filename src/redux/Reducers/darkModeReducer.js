@@ -1,4 +1,4 @@
-// redux/reducers/darkModeReducer.js
+
 const darkModeReducer = (state = false, action) => {
   switch (action.type) {
     case 'TOGGLE_DARK_MODE':

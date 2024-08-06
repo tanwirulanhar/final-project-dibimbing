@@ -14,11 +14,11 @@ const EditProfile = () => {
     role: "",
   });
   const [newProfilePicture, setNewProfilePicture] = useState(null);
-  const [previewImageUrl, setPreviewImageUrl] = useState(""); // State untuk URL gambar pratinjau
+  const [previewImageUrl, setPreviewImageUrl] = useState(""); 
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupType, setPopupType] = useState("success");
-  const [loading, setLoading] = useState(false); // State loading
+  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
   const { upload } = useUpload();
 
@@ -37,7 +37,7 @@ const EditProfile = () => {
           }
         );
         setUserData(response.data.data);
-        setPreviewImageUrl(response.data.data.profilePictureUrl); // Set URL gambar awal
+        setPreviewImageUrl(response.data.data.profilePictureUrl); 
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -80,8 +80,7 @@ const EditProfile = () => {
         formData.append("profileImage", newProfilePicture);
       }
 
-      // Jika Anda ingin meng-upload gambar terlebih dahulu, Anda bisa memisahkan
-      // logika upload gambar ke bagian ini dan mendapatkan URL-nya.
+     
       if (newProfilePicture) {
         setLoading(true);
         const imageFormData = new FormData();

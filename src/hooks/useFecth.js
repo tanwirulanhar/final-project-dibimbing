@@ -14,16 +14,16 @@ export default function useGetData() {
 
         console.log("Response received:", res.data);
 
-        // Pastikan bahwa data selalu array
+      
         if (Array.isArray(res.data.data)) {
           return res.data.data;
         } else {
           console.error("Response data is not an array:", res.data);
-          return []; // Kembalikan array kosong jika data bukan array
+          return []; 
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-        return []; // Kembalikan array kosong jika terjadi error
+        return [];
       }
     };
   }, []);

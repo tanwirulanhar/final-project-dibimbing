@@ -99,7 +99,7 @@ const Activity = () => {
                         className="object-cover w-full h-64 md:h-96"
                       />
                       <p className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white bg-black bg-opacity-50">
-                        {/* <Link to={`/activity/${data.id}`}>{data.title}</Link> */}
+                       
                       </p>
                     </div>
                   ))}

@@ -53,13 +53,13 @@ const PromoUser = () => {
     focusOnSelect: true,
     responsive: [
       {
-        breakpoint: 1024, // For tablets and large screens
+        breakpoint: 1024, 
         settings: {
           slidesToShow: 2,
         },
       },
       {
-        breakpoint: 768, // For mobile screens
+        breakpoint: 768, 
         settings: {
           slidesToShow: 1,
         },
